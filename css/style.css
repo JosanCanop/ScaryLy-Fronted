@@ -13,3 +13,44 @@
     background-size: contain;
     background-color: black;
 }
+
+/*contenedor de géneros*/
+#genres-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 25px;
+}
+
+#genres-container h3 {
+    color: #fff;
+    font-size: 30px;
+}
+
+.botones-generos {
+    margin-top: 25px;
+}
+
+.botones-generos button {
+    padding: 10px;
+    background-color: transparent;
+    color: #f3f3f3;
+    font-weight: bold;
+    border: none;
+    overflow: hidden;
+    transition: 0.5s;
+    cursor: pointer;
+    border-radius: 10%;
+    word-spacing: 5px;
+
+}
+
+.botones-generos button:hover {
+    background-color: #f40303;
+    box-shadow:
+        0 0 25px #f40303,
+        0 0 50px #f40303,
+        0 0 200px #f40303;
+}
