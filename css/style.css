@@ -1,0 +1,15 @@
+.index-body {
+    background-image: linear-gradient(rgba(7, 7, 7, 0.692), rgba(0, 0, 0, 0.644)), url(../images/backgrounds/Collagetop.png);
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: contain;
+    background-color: black;
+}
+
+.login-body {
+    background-image: linear-gradient(rgba(7, 7, 7, 0.829), rgba(0, 0, 0, 0.76)), url(../images/backgrounds/Collagetop.png);
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: contain;
+    background-color: black;
+}

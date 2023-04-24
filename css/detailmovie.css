@@ -1,0 +1,25 @@
+.font-anton {
+    font-family: 'Anton', sans-serif;
+}
+
+.poster {
+    position: relative;
+    display: block;
+    transform: perspective(600px) rotateY(-20deg);
+    transition: transform .3s
+}
+
+.poster img {
+    width: auto;
+    max-width: 100%;
+}
+
+.poster img:hover {
+    transform: rotateY(0);
+    cursor: pointer;
+}
+
+.poster:hover {
+    transform: rotateY(0);
+    cursor: pointer;
+}

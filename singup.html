@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>ScaryLySingUp</title>
+</head>
+
+<body class="login-body">
+    <!--icono regreso index-->
+    <div class="w-3/4 mx-auto flex justify-center items-center mt-5">
+        <div>
+            <a href="index.html"><img class="h-[90px] mt-4 max-w-xs transition duration-300 ease-in-out hover:scale-110"
+                    src="images/logos/logobueno.png" alt="logoSinFondo"></a>
+        </div>
+    </div>
+    <!--botones campos registro-->
+    <div class="flex flex-col items-center justify-center h-screen">
+        <form id="form" action="register">
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <h1></h1>
+                </div>
+                <div>
+                    <input class="w-full bg-gray-200 py-2 px-4 rounded-lg" type="text" name="username"
+                        placeholder="Escribe tu nombre de usuario" id="userNickname" required>
+                </div>
+                <div>
+                    <input class="w-full bg-gray-200 py-2 px-4 rounded-lg" type="text" name="name"
+                        placeholder="Escribe tu nombre" id="userName" required>
+                </div>
+                <div>
+                    <input class="w-full bg-gray-200 py-2 px-4 rounded-lg" type="text" name="surname"
+                        placeholder="Escribe tu Apellido" id="userSurname" required>
+                </div>
+                <div>
+                    <input class="w-full bg-gray-200 py-2 px-4 rounded-lg" type="email" name="email"
+                        placeholder="Escribe tu Email" id="emailUser" required>
+                </div>
+                <div>
+                    <input class="w-full bg-gray-200 py-2 px-4 rounded-lg" type="password" name="password"
+                        id="passwordUser" placeholder="Escribe tu contraseña" required>
+                </div>
+                <div>
+                    <input class="w-full bg-gray-200 py-2 px-4 rounded-lg" type="password" name="passwordRepeat"
+                        id="passwordUserRepeat" placeholder="Repite tu contraseña" required>
+                </div>
+                <div>
+                    <div id="password-error-message"></div>
+                    <button type="submit"
+                        class="mt-2 rounded-md text-white bg-red-600 p-4 w-60 hover:text-xl hover:bg-red-800">Registrarse</button>
+                </div>
+                <div class="text-center"> <a class="text-gray-400 hover:text-xl hover:text-white" href="login.html">
+                        ¡Ya tengo cuenta!</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--footer-->
+    <footer class="bg-neutral-800" id="footer">
+    </footer>
+
+
+    <script src="js/token.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/singup.js"></script>
+</body>
+
+</html>
