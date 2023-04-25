@@ -38,9 +38,6 @@ async function loginUser(form) {
             location.replace('home.html')
         });;
 
-
-
-
     } catch (error) {
         console.log(error)
         swal('Usuario incorrecto', 'Intenta introducir un usuario valido', 'error')
