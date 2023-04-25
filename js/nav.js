@@ -84,9 +84,6 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
                 </svg>
 
             </button>
-            <a class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
-                href="filter.html">Géneros
-            </a>
         </div>
     </div>
     <div id="dropdownHover"
@@ -121,7 +118,7 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
 </div>
 <!--menu  hamburguesa-->
 <div>
-    <button type="button" onclick="verMenu()" class="lg:hidden" id="dropdownHoverButton3"
+    <button type="button" onclick="verMenu()" class="lg:hidden pr-5" id="dropdownHoverButton3"
         data-dropdown-toggle="dropdownHover3" data-dropdown-trigger="hover"
         class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
         type="button">
@@ -165,11 +162,6 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
                     <a href="peliculasvistas.html"
                         class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Películas
                         vistas</a>
-                </li>
-                <li>
-                    <a class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white"
-                        href="filter.html">Géneros
-                    </a>
                 </li>
                 <li>
                     <a href="user.html"

@@ -50,7 +50,21 @@
 .botones-generos button:hover {
     background-color: #f40303;
     box-shadow:
+        0 0 15px #f40303,
         0 0 25px #f40303,
-        0 0 50px #f40303,
-        0 0 200px #f40303;
+        0 0 100px #f40303;
+}
+
+#resultados-busqueda {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 25px;
+}
+
+#resultados-busqueda h3 {
+    color: #fff;
+    font-size: 30px;
 }

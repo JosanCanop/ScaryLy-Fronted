@@ -26,9 +26,10 @@
     <div class="container mx-auto">
         <div class="flex flex-col-2 pt-32 gap-x-10 items-center flex-wrap">
             <!--informacion pelicula-->
-            <div class="basis-2/3 ml-6 flex flex-col">
+            <div class="basis-11/12 sm:basis-2/3 ml-6 flex flex-col">
                 <h1 class="font-anton tracking-wider sm:text-3xl text-sm p-2 text-white">Título película</h1>
-                <p class="text-xs sm:text-base p-2 text-white">Descripción película "Lorem ipsum dolor sit amet,
+                <p class="text-xs sm:text-base p-2 text-white text-justify">Descripción película "Lorem ipsum dolor sit
+                    amet,
                     consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                     enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
@@ -46,8 +47,8 @@
                 </div>
 
                 <!--segunda opcion-->
-                <div class="inline-flex gap-x-20 mt-5">
-                    <div id="like-dislike" class="flex items-center space-x-2 px-2 mb-20">
+                <div class="flex flex-row gap-x-5 sm:gap-x-20 mt-5 mb-10">
+                    <div id="like-dislike" class="flex items-center space-x-2 px-2 mb-5 sm:mb-20">
                         <button
                             class="inline-flex items-center justify-center text-white hover:text-green-400 focus:text-green-400 space-x-2 pr-4">
                             <i class="far fa-thumbs-up text-sm"></i>
@@ -60,7 +61,6 @@
                         </button>
                     </div>
                     <div id="actions" class="inline-block space-x-4">
-
                         <button
                             class="inline-flex items-center justify-center w-8 h-8 bg-transparent border border-white rounded-full text-white focus:text-green-400 focus:bg-white hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-green-500">
                             <i class="far fa-eye text-sm"></i>
@@ -72,9 +72,6 @@
                         </button>
                     </div>
                 </div>
-
-
-
             </div>
 
             <!--poster pelicula-->
@@ -135,6 +132,16 @@
                                     película para mejorar
                                     la experiencia de los
                                     demás usuarios.</p>
+                            </div>
+                            <div id="botones-comment">
+
+                                <button id="editComment">
+
+                                </button>
+                                <button id="deleteComment">
+
+                                </button>
+
                             </div>
                         </div>
                     </div>
