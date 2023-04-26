@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -38,7 +39,6 @@
                 <div class="mx-auto">
                     <svg width='60px' height='60px' viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg'
                         xmlns:xlink='http://www.w3.org/1999/xlink'>
-                        <title>user_4_fill</title>
                         <g id='Icon' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
                             <g id='User' transform='translate(-240.000000, -48.000000)'>
                                 <g id='user_4_fill' transform='translate(240.000000, 48.000000)'>
@@ -53,44 +53,47 @@
                         </g>
                     </svg>
                 </div>
-                <div class="flex flex-col mx-auto gap-y-2 w-full md:w-96">
-                    <div>
-                        <label for="username" class="form-label">Nombre de usuario</label>
-                        <br>
-                        <input type="text" class="form-control rounded-md w-full pl-2 text-gray-500" id="username"
-                            placeholder="Nombre de usuario" disabled>
-                    </div>
-                    <div>
-                        <label for="name" class="form-label">Nombre</label>
-                        <br>
-                        <input type="text" class="form-control rounded-md w-full pl-2 text-gray-500" id="name"
-                            placeholder="Nombre" disabled>
-                    </div>
-                    <div>
-                        <label for="surname" class="form-label">Apellido</label>
-                        <br>
-                        <input type="text" class="form-control rounded-md w-full pl-2 text-gray-500" id="surname"
-                            placeholder="Apellido" disabled>
-                    </div>
-                    <div>
-                        <label for="email" class="form-label">Correo electrónico</label>
-                        <br>
-                        <input type="email" class="form-control rounded-md w-full pl-2" id="email"
-                            placeholder="Correo electrónico" disabled>
-                    </div>
+                <div class="flex flex-col mx-auto gap-y-2 w-60 md:w-96">
+                    <form id="form">
+                        <div>
+                            <label for="username" class="form-label">Nombre de usuario</label>
+                            <br>
+                            <input type="text" class="form-control rounded-md w-full pl-2 text-white" id="username"
+                                placeholder="Nombre de usuario" name="username" disabled>
+                        </div>
+                        <div>
+                            <label for="name" class="form-label">Nombre</label>
+                            <br>
+                            <input type="text" class="form-control rounded-md w-full pl-2 text-white" id="name"
+                                placeholder="Nombre" name="name" disabled>
+                        </div>
+                        <div>
+                            <label for="surname" class="form-label">Apellido</label>
+                            <br>
+                            <input type="text" class="form-control rounded-md w-full pl-2 text-white" id="surname"
+                                placeholder="Apellido" name="surname" disabled>
+                        </div>
+                        <div>
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <br>
+                            <input type="email" class="form-control rounded-md w-full pl-2" id="email"
+                                placeholder="Correo electrónico" disabled>
+                        </div>
                 </div>
                 <div id="botones" class="mx-auto mt-10">
-                    <button id="changeUserData"
+                    <button type="button" id="changeUserData"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Modificar datos de usuario
                     </button>
-                    <button id="saveUserData"
+                    <button type="submit" id="saveUserData"
                         class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded hidden">
                         Guardar cambios
                     </button>
                 </div>
+                </form>
                 <div class="mt-10 mx-auto text-sm">
-                    <button>
+                    <button onclick="askDelete()"
+                        class="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded">
                         Borrar cuenta
                     </button>
                 </div>
@@ -102,7 +105,7 @@
 
 
     <!--footer-->
-    <footer class="fixed md:static bg-neutral-800 bottom-0 left-0 right-0 z-50 mt-10" id="footer">
+    <footer class="fixed md:absolute bg-neutral-800 bottom-0 left-0 right-0 z-50 mt-10" id="footer">
     </footer>
 
 

@@ -188,7 +188,6 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
             <p id="userName"></p>
             <svg width='24px' height='24px' viewBox='0 0 24 24' version='1.1'
                 xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
-                <title>user_4_fill</title>
                 <g id='Icon' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'>
                     <g id='User' transform='translate(-240.000000, -48.000000)'>
                         <g id='user_4_fill' transform='translate(240.000000, 48.000000)'>
