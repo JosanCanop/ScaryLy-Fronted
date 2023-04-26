@@ -120,8 +120,8 @@ async function deleteUser() {
 
 function askDelete() {
     swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        title: "¿Estas seguro que quieres eliminar tu cuenta?",
+        text: "¡Una vez borrada, no podras recuperarla!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -129,7 +129,7 @@ function askDelete() {
         .then((willDelete) => {
             if (willDelete) {
                 deleteUser()
-                swal("Poof! Your imaginary file has been deleted!", {
+                swal("¡Buff! ¡Tú cuenta ha sido borrada :(!", {
                     icon: "success",
                 }).then(function () {
                     location.replace('index.html')
