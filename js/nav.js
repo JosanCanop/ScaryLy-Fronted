@@ -87,20 +87,20 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
         </div>
     </div>
     <div id="dropdownHover"
-        class="z-10 hidden bg-zinc-800 divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-600">
+        class="z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-800">
         <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownHoverButton">
             <li>
                 <a href="peliculasfavoritas.html"
-                    class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Películas que me gustan</a>
+                    class="block px-4 py-2 hover:bg-gray-600 text-white">Películas que me gustan</a>
             </li>
             <li>
                 <a href="peliculaspendientes.html"
-                    class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Películas
+                    class="block px-4 py-2 hover:bg-gray-600 text-white">Películas
                     pendientes</a>
             </li>
             <li>
                 <a href="peliculasvistas.html"
-                    class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Películas
+                    class="block px-4 py-2 hover:bg-gray-600 text-white">Películas
                     vistas</a>
             </li>
         </ul>
@@ -142,20 +142,20 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
     <!--opciones menu hamburguesa-->
     <nav id="menu" class="hidden flex flex-col gap-4 items-center pt-4 lg:hidden">
         <div id="dropdownHover3"
-            class="z-10 hidden bg-zinc-800 divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-600">
-            <ul class="py-2 text-sm text-gray-200"
+            class="z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-800">
+            <ul class="py-2 bg-gray-800 text-sm text-gray-200"
                 aria-labelledby="dropdownHoverButton3">
                 <li>
-                    <a class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white"
+                    <a class="block px-4 py-2 hover:bg-gray-500 text-white"
                         href="">Inicio</a>
                 </li>
                 <li>
                     <a href=" peliculasfavoritas.html"
-                        class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Películas que me gustan</a>
+                        class="block px-4 py-2 hover:bg-gray-500 text-white">Películas que me gustan</a>
                 </li>
                 <li>
                     <a href="peliculaspendientes.html"
-                        class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Películas
+                        class="block px-4 py-2 bg-gray-500 text-white">Películas
                         pendientes</a>
                 </li>
                 <li>
@@ -210,15 +210,15 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
     </button>
     <!-- Dropdown menu -->
     <div id="dropdownHover2"
-        class="z-10 hidden bg-zinc-800 divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-600">
+        class="z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-44 bg-gray-800">
         <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownHoverButton2">
             <li>
                 <a href="user.html"
-                    class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Ver
+                    class="block px-4 py-2 hover:bg-gray-600 text-white">Ver
                     perfil</a>
             </li>
             <li>
-                <button onclick="exitLogin()" class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white w-full text-left">Cerrar
+                <button onclick="exitLogin()" class="block px-4 py-2 hover:bg-gray-600 text-white w-full text-left">Cerrar
                     sesión
                 </button>
             </li>
