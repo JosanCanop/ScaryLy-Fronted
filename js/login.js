@@ -1,6 +1,6 @@
-import { checkTokenOn } from "./tokenon"
-
+/*import { checkTokenOn } from "./tokenon.js";
 checkTokenOn()
+*/
 
 const form = document.getElementById("form")
 

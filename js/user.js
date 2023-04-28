@@ -1,6 +1,7 @@
-import { checkTokenOff } from "./tokenoff";
+/*import { checkTokenOff } from "./tokenoff";
 
 checkTokenOff()
+*/
 
 // Seleccionar los elementos del DOM para los botones
 const changeUserDataButton = document.querySelector('#changeUserData');
