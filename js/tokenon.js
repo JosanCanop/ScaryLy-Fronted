@@ -3,4 +3,3 @@ export function checkTokenOn() {
         window.location.href = "index.html"
     }
 }
-checkTokenOn()

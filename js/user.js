@@ -1,3 +1,10 @@
+function checkTokenOn() {
+    if (isTokenExpired()) {
+        window.location.href = "index.html"
+    }
+}
+checkTokenOn()
+
 // Seleccionar los elementos del DOM para los botones
 const changeUserDataButton = document.querySelector('#changeUserData');
 const saveUserDataButton = document.querySelector('#saveUserData');
