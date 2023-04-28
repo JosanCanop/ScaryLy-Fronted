@@ -40,6 +40,7 @@ function showMovieData(data) {
     let movieData = document.getElementById("movieData")
     let totalLikes = data.data.attributes.userslikes.data.length;
     let totalDislikes = data.data.attributes.usersdislikes.data.length;
+
     const genreNamebyId = data.data.attributes.genres.data[0].attributes.name;
     movieData.innerHTML += `<!--informacion pelicula-->
 <div class="basis-11/12 sm:basis-2/3 ml-6 flex flex-col">
@@ -49,7 +50,7 @@ function showMovieData(data) {
 
     <!--genero pelicula, se pinta por js-->
     <div class="text-xs sm:text-base p-2 text-white inline-flex space-x-4">
-        <p class="hover:underline underline-offset-4">${genreNamebyId}</p>
+        <p class="underline underline-offset-4">${genreNamebyId}</p>
     </div>
 
     <!--segunda opcion-->
