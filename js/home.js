@@ -1,7 +1,7 @@
 import { carousel } from "./carrousel.js";
-import { checkTokenOn } from "./tokenon.js";
+import { checkTokenOff } from "./tokenoff.js";
 
-checkTokenOn()
+checkTokenOff()
 async function getGenresButtons() {
     try {
         let myHeaders = new Headers();

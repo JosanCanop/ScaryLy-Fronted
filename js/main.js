@@ -1,6 +1,3 @@
-function checkTokenOn() {
-    if (!isTokenExpired()) {
-        window.location.href = "home.html"
-    }
-}
+import { checkTokenOn } from "./tokenon";
+
 checkTokenOn()

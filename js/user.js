@@ -1,9 +1,6 @@
-function checkTokenOn() {
-    if (isTokenExpired()) {
-        window.location.href = "index.html"
-    }
-}
-checkTokenOn()
+import { checkTokenOff } from "./tokenoff";
+
+checkTokenOff()
 
 // Seleccionar los elementos del DOM para los botones
 const changeUserDataButton = document.querySelector('#changeUserData');
