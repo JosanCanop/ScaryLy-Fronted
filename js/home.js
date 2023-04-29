@@ -56,7 +56,7 @@ function showMoviesGenre(data) {
         <div class="indicadores"></div>
     </div>
 
-    <div class="contenedor-principal">
+    <div class="contenedor-principal mb-8">
         <button role="button" id="flecha-izquierda-${genre.id}" class="flecha-izquierda"><i
                 class="fas fa-angle-left"></i></button>
 
