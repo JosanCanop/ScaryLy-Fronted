@@ -3,7 +3,7 @@
 checkTokenOff()*/
 
 const urlParams = new URLSearchParams(window.location.search);
-const id = urlParams.get("id");
+const movieId = urlParams.get("id");
 
 async function getMovie() {
     try {
@@ -16,8 +16,8 @@ async function getMovie() {
             redirect: 'follow'
         };
 
-        const response = await fetch("http://localhost:1337/api/movies/" + id + "?populate=*", requestOptions)
-
+        const response = await fetch("http://localhost:1337/api/movies/" + movieId + "?populate=*", requestOptions)
+        const response2 = await fetch("http://localhost:1337/api/movies/" + movieId + "?populate=*", requestOptions)
 
         if (!response.ok) {
             if (response.status == 401) {
@@ -28,8 +28,19 @@ async function getMovie() {
                 throw new Error(message);
             }
         }
+        if (!response2.ok) {
+            if (response2.status == 401) {
+                localStorage.removeItem("token")
+                window.location.href = "login.html"
+            } else {
+                const message2 = `Error: ${response2.status}`;
+                throw new Error(message2);
+            }
+        }
         const data = await response.json()
+        const data2 = await response.json()
         showMovieData(data)
+        showComments(data2)
 
     } catch (error) {
         console.log(error)
@@ -145,6 +156,9 @@ function showMovieData(data) {
 `
 }
 
+function showComments(data2) {
+
+}
 getMovie()
 async function editComment() {
     const postCommentChange = document.getElementById("postCommentChange")
