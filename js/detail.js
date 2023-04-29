@@ -5,6 +5,7 @@ checkTokenOff()*/
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
 
+
 async function getMovie() {
     try {
         var myHeaders = new Headers();
@@ -17,7 +18,7 @@ async function getMovie() {
         };
 
         const response = await fetch("http://localhost:1337/api/movies/" + movieId + "?populate=*", requestOptions)
-        const response2 = await fetch("http://localhost:1337/api/movies/" + movieId + "?populate=*", requestOptions)
+        const response2 = await fetch("http://localhost:1337/api/users?populate=*", requestOptions)
 
         if (!response.ok) {
             if (response.status == 401) {
@@ -37,23 +38,28 @@ async function getMovie() {
                 throw new Error(message2);
             }
         }
-        const data = await response.json()
-        const data2 = await response.json()
-        showMovieData(data)
-        showComments(data2)
+        const movies = await response.json()
+        const users = await response2.json()
+        showMovieData(movies, users)
 
     } catch (error) {
         console.log(error)
     }
 }
 
-function showMovieData(data) {
-    let movieData = document.getElementById("movieData")
-    let totalLikes = data.data.attributes.userslikes.data.length;
-    let totalDislikes = data.data.attributes.usersdislikes.data.length;
+function showMovieData(movies, users) {
+    for (movie of movies) {
+        let movieData = document.getElementById("movieData")
+        let totalLikes = data.data.attributes.userslikes.data.length;
+        let totalDislikes = data.data.attributes.usersdislikes.data.length;
+        const genreNamebyId = data.data.attributes.genres.data[0].attributes.name;
 
-    const genreNamebyId = data.data.attributes.genres.data[0].attributes.name;
-    movieData.innerHTML += `<!--informacion pelicula-->
+        const username = users.find((comment) => comment.id == user.comment.id);
+        let bodyComment = data2.attributes.comment;
+
+
+
+        movieData.innerHTML += `<!--informacion pelicula-->
 <div class="basis-11/12 sm:basis-2/3 ml-6 flex flex-col">
     <h1 class="font-anton tracking-wider sm:text-3xl text-sm p-2 text-white">${data.data.attributes.name}</h1>
     <p class="text-xs sm:text-base p-2 text-white text-justify">${data.data.attributes.description}</p>
@@ -98,68 +104,67 @@ function showMovieData(data) {
         alt="póster película" class="w-sm sm:w-lg">
 </div>
 <!--comments-->
-<div id="comments" class="w-screen mt-20 mx-10">
-    <!-- comment form -->
-    <div class="flex justify-left mt-15 mb-4 mx-auto max-w-7xl">
-        <form class="w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2">
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <h2 class="px-4 pt-3 pb-2 text-gray-300 text-base ">Comparte tu opinión</h2>
-                <div class="w-full md:w-full px-3 mb-2 mt-2">
-                    <textarea
-                        class="bg-gray-200 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 text-gray-800 focus:outline-none focus:bg-white"
-                        name="body" placeholder='Escribe aquí tu comentario' required></textarea>
-                </div>
-
-                <div class="w-full md:w-full flex items-end md:w-full px-3">
-                    <div class="-mr-1">
-                        <input type='submit'
-                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
-                            value='Publicar'>
+    <div id="comments" class="w-screen mt-20 mx-10">
+        <!-- comment form -->
+        <div class="flex justify-left mt-15 mb-4 mx-auto max-w-7xl">
+            <form class="w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2">
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <h2 class="px-4 pt-3 pb-2 text-gray-300 text-base ">Comparte tu opinión</h2>
+                    <div class="w-full md:w-full px-3 mb-2 mt-2">
+                        <textarea
+                            class="bg-gray-200 rounded border border-gray-400 leading-normal resize-none w-full h-20 py-2 px-3 font-medium placeholder-gray-700 text-gray-800 focus:outline-none focus:bg-white"
+                            name="body" placeholder='Escribe aquí tu comentario' required></textarea>
+                    </div>
+    
+                    <div class="w-full md:w-full flex items-end md:w-full px-3">
+                        <div class="-mr-1">
+                            <input type='submit'
+                                class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100"
+                                value='Publicar'>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
-    <!--comentarios-->
-    <div
-        class="flex justify-left mt-15 mb-4 w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2 mx-auto max-w-7xl">
-        <h3 class="text-gray-300 py-2 text-lg sm:text-2xl font-bolder">Comentarios</h3>
-    </div>
-    <div id="publishedComments">
-        <div class="flex mt-15 mb-4 w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2 mx-auto max-w-7xl">
-            <div class="flex flex-col flex-wrap -mx-3 mb-6 w-full">
-                <h2 class="px-4 pt-3 pb-2 text-gray-300 text-bases font-bold text-xs sm:text-sm">Usuario
-                </h2>
-                <div class="w-full px-3 mb-2 mt-2">
-                    <textarea id="userComment"
-                        class="bg-transparent rounded leading-normal resize-none w-full h-20 py-2 px-3 placeholder-gray-700 text-white"
-                        disabled>Aquí va el comentario del usuario sobre la película para mejorar la experiencia de los demás usuarios.</textarea>
+            </form>
+        </div>
+        <!--comentarios-->
+        <div
+            class="flex justify-left mt-15 mb-4 w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2 mx-auto max-w-7xl">
+            <h3 class="text-gray-300 py-2 text-lg sm:text-2xl font-bolder">Comentarios</h3>
+        </div>
+        <div id="publishedComments">
+            <div class="flex mt-15 mb-4 w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2 mx-auto max-w-7xl">
+                <div class="flex flex-col flex-wrap -mx-3 mb-6 w-full">
+                    <h2 class="px-4 pt-3 pb-2 text-gray-300 text-bases font-bold text-xs sm:text-sm">${usernameComment}
+                    </h2>
+                    <div class="w-full px-3 mb-2 mt-2">
+                        <textarea id="userComment"
+                            class="bg-transparent rounded leading-normal resize-none w-full h-20 py-2 px-3 placeholder-gray-700 text-white"
+                            disabled>${bodyComment}</textarea>
+                    </div>
+                    <div id="botones-comment" class="flex justify-end gap-4">
+                        <input type='submit' id="postCommentChange"
+                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100 hidden"
+                            value='Publicar cambio'>
+                        <button onclick="editComment()" id="editComment"
+                            class="border-2 border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-blue-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
+                            <i class="fas fa-pen text-white"></i>
+                        </button>
+                        <button id="deleteComment"
+                            class="border-2 border-red-500 hover:bg-red-500 text-red-500 hover:text-red-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
+                            <i class="fas fa-trash text-white"></i>
+                        </button>
+                    </div>
+    
                 </div>
-                <div id="botones-comment" class="flex justify-end gap-4">
-                    <input type='submit' id="postCommentChange"
-                        class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-100 hidden"
-                        value='Publicar cambio'>
-                    <button onclick="editComment()" id="editComment"
-                        class="border-2 border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-blue-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
-                        <i class="fas fa-pen text-white"></i>
-                    </button>
-                    <button id="deleteComment"
-                        class="border-2 border-red-500 hover:bg-red-500 text-red-500 hover:text-red-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
-                        <i class="fas fa-trash text-white"></i>
-                    </button>
-                </div>
-
             </div>
         </div>
     </div>
-</div>
 `
+    }
 }
 
-function showComments(data2) {
-
-}
 getMovie()
+
 async function editComment() {
     const postCommentChange = document.getElementById("postCommentChange")
     postCommentChange.classList.remove("hidden")
