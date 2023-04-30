@@ -63,6 +63,7 @@ header nav a.activo {
 .pelicula-principal .contenedor {
     margin: 0 auto;
     margin-bottom: 6.25em;
+    padding-top: 30px;
 }
 
 .pelicula-principal .titulo {
@@ -87,8 +88,7 @@ header nav a.activo {
     color: #fff;
     margin-right: 1.25em;
     cursor: pointer;
-    transition: .3s ease all;
-    font-size: 1.12em;
+    transition: .3s ease all
 }
 
 .pelicula-principal .boton:hover {
