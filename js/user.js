@@ -96,9 +96,9 @@ async function updateDatosUser(form) {
             title: "¡Usuario modificado!",
             text: "Datos guardados correctamente",
             icon: "success",
-            button: "Let's Go!",
+            button: "Continuar",
         }).then(function () {
-            location.replace('user.html')
+            location.reload()
         });;
     } catch (error) {
         console.log(error)

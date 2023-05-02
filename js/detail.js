@@ -4,7 +4,6 @@ checkTokenOff()*/
 
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
-const commentID = ""
 
 async function getMovie() {
     try {
@@ -96,7 +95,9 @@ function showMovieData(movies) {
     const allComments = movies.data.attributes.comments.data
     document.getElementById("contadorComentarios").innerHTML = allComments.length
 
+
     let html = ""
+
     for (const comment of allComments) {
         html += `
             <div class="flex mt-15 mb-4 w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2 mx-auto max-w-7xl">
@@ -108,21 +109,22 @@ function showMovieData(movies) {
                             disabled>${comment.attributes.comment}</textarea>
                     </div>`
         let buttons = ` <div id="botones-comment" class="flex justify-end gap-4">
-                        <button  type='submit' onclick="updateComment('${comment.id}')" id="postCommentChange"
-                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-red-800 hidden">Publicar cambio</button>
+                        <button type='submit' onclick="updateComment('${comment.id}')" id="postCommentChange"
+                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-600 hidden">Publicar cambio</button>
                         <button onclick="editComment('${comment.id}')" id="editComment"
                             class="border-2 border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-blue-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
                             <i class="fas fa-pen text-white"></i>
                         </button>
-                        <button id="deleteComment" onclick="deleteComment('${comment.id}')"
+                        <button id="deleteComment" onclick="askDelete('${comment.id}')"
                             class="border-2 border-red-500 hover:bg-red-500 text-red-500 hover:text-red-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
                             <i class="fas fa-trash text-white"></i>
                         </button>
                     </div> `
-        if (comment.attributes.user.data.attributes.email == localStorage.getItem('email')) {
-            html += buttons
-        }
 
+
+        if (comment.attributes.user.data.attributes.email == localStorage.getItem('email')) {
+            html += buttons;
+        }
         html += ` </div> 
             </div>
         </div>
@@ -131,11 +133,6 @@ function showMovieData(movies) {
     document.getElementById("publishedComments").innerHTML = html;
 }
 
-
-
-
-
-//el boton tiene que ser dinámico y coger el id del comentario
 function editComment() {
     const postCommentChange = document.getElementById("postCommentChange")
     postCommentChange.classList.toggle("hidden")
@@ -186,19 +183,19 @@ async function createComment() {
             icon: "success",
             button: "Let's Go!",
         }).then(function () {
-            window.location.reload()
+            location.reload()
         });;
     } catch (error) {
         console.log(error)
     }
 }
 
-async function deleteComment() {
+async function deleteComment(commentId) {
     try {
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
-        const response = await fetch(`http://localhost:1337/api/comments/`, {
-            method: "DELETE",
+        const response = await fetch(`http://localhost:1337/api/comments/` + commentId, {
+            method: 'DELETE',
             headers: myHeaders,
             redirect: 'follow'
 
@@ -207,13 +204,12 @@ async function deleteComment() {
             const message = `Error: ${response.status}`;
             throw new Error(message);
         }
-        window.location.reload
     } catch (error) {
         console.log(error)
     }
 }
 
-function askDelete() {
+function askDelete(commentId) {
     swal({
         title: "¿Estas seguro que quieres eliminar tu comentario?",
         text: "¡Una vez borrado, no podras recuperarlo!",
@@ -223,11 +219,11 @@ function askDelete() {
     })
         .then((willDelete) => {
             if (willDelete) {
-                deleteComment()
+                deleteComment(commentId)
                 swal("¡Tu comentario ha sido borrado!", {
                     icon: "success",
                 }).then(function () {
-                    window.location.reload
+                    location.reload()
                 });
             }
         });

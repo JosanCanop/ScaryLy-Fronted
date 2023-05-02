@@ -5,6 +5,7 @@ function verMenu() {
 function exitLogin() {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
+    localStorage.removeItem("idUser")
     window.location.href = "index.html"
 }
 
