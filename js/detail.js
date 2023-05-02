@@ -110,7 +110,7 @@ function showMovieData(movies) {
                     </div>`
         let buttons = ` <div id="botones-comment" class="flex justify-end gap-4">
                         <button type='submit' onclick="updateComment('${comment.id}')" id="postCommentChange"
-                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-600 hidden">Publicar cambio</button>
+                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-gray-600 hidden">Publicar cambios</button>
                         <button onclick="editComment('${comment.id}')" id="editComment"
                             class="border-2 border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-blue-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
                             <i class="fas fa-pen text-white"></i>
@@ -133,17 +133,48 @@ function showMovieData(movies) {
     document.getElementById("publishedComments").innerHTML = html;
 }
 
-function editComment() {
+function editComment(commentId) {
     const postCommentChange = document.getElementById("postCommentChange")
     postCommentChange.classList.toggle("hidden")
-    const userComment = document.getElementById("userComment")
+    const userComment = document.getElementById(`userComment-` + commentId)
     userComment.disabled = false
     userComment.classList.add("bg-white", "text-black")
 
 }
 
-async function updateComment() {
+async function updateComment(commentId) {
+    try {
+        var raw = JSON.stringify({
+            "data": {
+                "comment": document.getElementById(`userComment-` + commentId).value,
+                "movie": movieId,
+                "user": localStorage.getItem("idUser")
+            }
+        });
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
+        myHeaders.append("Content-Type", "application/json");
+        const response = await fetch(`http://localhost:1337/api/comments/` + commentId, {
+            method: "PUT",
+            body: raw,
+            headers: myHeaders,
+            redirect: 'follow'
 
+        });
+        if (!response.ok) {
+            const message = `Error: ${response.status}`;
+            throw new Error(message);
+        }
+        swal({
+            title: "Comentario actualizado correctamente",
+            icon: "success",
+            button: "Let's Go!",
+        }).then(function () {
+            location.reload()
+        });;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const formCreate = document.getElementById("formCreate")
