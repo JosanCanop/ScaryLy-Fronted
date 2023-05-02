@@ -4,7 +4,7 @@ checkTokenOff()*/
 
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
-
+const commentId = ""
 
 async function getMovie() {
     try {
@@ -17,30 +17,19 @@ async function getMovie() {
             redirect: 'follow'
         };
 
-        const response = await fetch("http://localhost:1337/api/movies/" + movieId + "?populate=*", requestOptions)
-        const response2 = await fetch("http://localhost:1337/api/comments?populate=*", requestOptions)
+        const response = await fetch("http://localhost:1337/api/movies/" + movieId + "?populate=comments,comments.user,userslikes,usersdislikes,genres", requestOptions)
 
         if (!response.ok) {
             if (response.status == 401) {
                 localStorage.removeItem("token")
-                window.location.href = "login.html"
+                window.location.href = "index.html"
             } else {
                 const message = `Error: ${response.status}`;
                 throw new Error(message);
             }
         }
-        if (!response2.ok) {
-            if (response2.status == 401) {
-                localStorage.removeItem("token")
-                window.location.href = "login.html"
-            } else {
-                const message2 = `Error: ${response2.status}`;
-                throw new Error(message2);
-            }
-        }
         const movies = await response.json()
-        const comments = await response2.json()
-        showMovieData(movies, comments)
+        showMovieData(movies)
 
     } catch (error) {
         console.log(error)
@@ -112,13 +101,13 @@ function showMovieData(movies) {
         html += `
             <div class="flex mt-15 mb-4 w-full bg-gray-700 bg-opacity-50 rounded-lg px-4 pt-2 mx-auto max-w-7xl">
                 <div class="flex flex-col flex-wrap -mx-3 mb-6 w-full">
-                    <h2 class="px-4 pt-3 pb-2 text-gray-300 text-bases font-bold text-xs sm:text-sm">Nombre de usuario</h2>
+                    <h2 class="px-4 pt-3 pb-2 text-gray-300 text-bases font-bold text-xs sm:text-sm">${comment.attributes.user.data.attributes.username}</h2>
                     <div class="w-full px-3 mb-2 mt-2">
                         <textarea id="userComment"
-                            class="bg-transparent border-transparent rounded leading-normal resize-none w-full h-20 py-2 px-3 placeholder-gray-700 text-white"
+                            class="bg-transparent border-transparent rounded leading-normal resize-none w-full h-fit py-2 px-3 placeholder-gray-700 text-white"
                             disabled>${comment.attributes.comment}</textarea>
-                    </div>
-                    <div id="botones-comment" class="flex justify-end gap-4">
+                    </div>`
+        let buttons = ` <div id="botones-comment" class="flex justify-end gap-4">
                         <input type='submit' id="postCommentChange"
                             class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-red-800 hidden"
                             value='Publicar cambio'>
@@ -130,12 +119,15 @@ function showMovieData(movies) {
                             class="border-2 border-red-500 hover:bg-red-500 text-red-500 hover:text-red-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
                             <i class="fas fa-trash text-white"></i>
                         </button>
-                    </div>
-    
-                </div>
+                    </div> `
+        if (comment.attributes.user.data.attributes.email == localStorage.getItem('email')) {
+            html += buttons
+        }
+
+        html += ` </div> 
             </div>
         </div>
-    `
+        `
     }
     document.getElementById("publishedComments").innerHTML = html;
 }
@@ -145,11 +137,15 @@ function showMovieData(movies) {
 
 
 //el boton tiene que ser dinámico y coger el id del comentario
-async function editComment() {
+function editComment() {
     const postCommentChange = document.getElementById("postCommentChange")
-    postCommentChange.classList.remove("hidden")
+    postCommentChange.classList.toggle("hidden")
     const userComment = document.getElementById("userComment")
     userComment.disabled = false
     userComment.classList.add("bg-white", "text-black")
+
+}
+
+async function updateComment() {
 
 }
