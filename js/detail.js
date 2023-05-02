@@ -4,7 +4,7 @@ checkTokenOff()*/
 
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
-const commentId = ""
+const commentID = ""
 
 async function getMovie() {
     try {
@@ -103,19 +103,18 @@ function showMovieData(movies) {
                 <div class="flex flex-col flex-wrap -mx-3 mb-6 w-full">
                     <h2 class="px-4 pt-3 pb-2 text-gray-300 text-bases font-bold text-xs sm:text-sm">${comment.attributes.user.data.attributes.username}</h2>
                     <div class="w-full px-3 mb-2 mt-2">
-                        <textarea id="userComment"
+                        <textarea id="userComment-${comment.id}"
                             class="bg-transparent border-transparent rounded leading-normal resize-none w-full h-fit py-2 px-3 placeholder-gray-700 text-white"
                             disabled>${comment.attributes.comment}</textarea>
                     </div>`
         let buttons = ` <div id="botones-comment" class="flex justify-end gap-4">
-                        <input type='submit' id="postCommentChange"
-                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-red-800 hidden"
-                            value='Publicar cambio'>
-                        <button onclick="editComment()" id="editComment"
+                        <button  type='submit' onclick="updateComment('${comment.id}')" id="postCommentChange"
+                            class="bg-red-600 text-gray-200 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide mr-1 hover:bg-red-800 hidden">Publicar cambio</button>
+                        <button onclick="editComment('${comment.id}')" id="editComment"
                             class="border-2 border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-blue-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
                             <i class="fas fa-pen text-white"></i>
                         </button>
-                        <button id="deleteComment"
+                        <button id="deleteComment" onclick="deleteComment('${comment.id}')"
                             class="border-2 border-red-500 hover:bg-red-500 text-red-500 hover:text-red-700 font-bold rounded-lg py-1 px-2 sm:py-2 sm:px-4 text-xs sm:text-base">
                             <i class="fas fa-trash text-white"></i>
                         </button>
@@ -148,4 +147,88 @@ function editComment() {
 
 async function updateComment() {
 
+}
+
+const formCreate = document.getElementById("formCreate")
+formCreate.addEventListener('submit', (e) => {
+    e.preventDefault()
+    createComment()
+
+})
+
+const newComment = document.getElementById("newComment")
+
+async function createComment() {
+    try {
+        var raw = JSON.stringify({
+            "data": {
+                "comment": newComment.value,
+                "movie": movieId,
+                "user": localStorage.getItem("idUser")
+            }
+        });
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
+        myHeaders.append("Content-Type", "application/json");
+        const response = await fetch('http://localhost:1337/api/comments', {
+            method: "POST",
+            body: raw,
+            headers: myHeaders,
+            redirect: 'follow'
+
+        });
+        if (!response.ok) {
+            const message = `Error: ${response.status}`;
+            throw new Error(message);
+        }
+        swal({
+            title: "Comentario publicado",
+            icon: "success",
+            button: "Let's Go!",
+        }).then(function () {
+            window.location.reload()
+        });;
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function deleteComment() {
+    try {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
+        const response = await fetch(`http://localhost:1337/api/comments/`, {
+            method: "DELETE",
+            headers: myHeaders,
+            redirect: 'follow'
+
+        });
+        if (!response.ok) {
+            const message = `Error: ${response.status}`;
+            throw new Error(message);
+        }
+        window.location.reload
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function askDelete() {
+    swal({
+        title: "¿Estas seguro que quieres eliminar tu comentario?",
+        text: "¡Una vez borrado, no podras recuperarlo!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                deleteComment()
+                swal("¡Tu comentario ha sido borrado!", {
+                    icon: "success",
+                }).then(function () {
+                    window.location.reload
+                });
+            }
+        });
 }

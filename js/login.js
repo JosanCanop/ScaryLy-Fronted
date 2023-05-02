@@ -26,8 +26,11 @@ async function loginUser(form) {
         const tokenJson = await response.json()
         const tokenActualUser = tokenJson.jwt
         const emailActualUser = tokenJson.user.email
+        const idActualUser = tokenJson.user.id
+
         localStorage.setItem("email", emailActualUser);
         localStorage.setItem("token", tokenActualUser);
+        localStorage.setItem("idUser", idActualUser);
         swal({
             title: "Usuario Correcto!",
             text: "Bienvenid@ al rincón del terror :D",
