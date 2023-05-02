@@ -36,7 +36,7 @@ async function getGenresButtons() {
 function showGenreButtons(data) {
     const buttonsGenres = document.getElementById("btnGenres")
     for (let genre of data.data) {
-        buttonsGenres.innerHTML += `<button
+        buttonsGenres.innerHTML += `<button id="buton-${genre.id}"
             class=" m-1 hover:font-semibold border border-double  bg-opacity-70 border-white rounded-full px-3 py-2 hover:bg-red-900 text-white">${genre.attributes.name}</button>`
     }
 }

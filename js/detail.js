@@ -57,8 +57,7 @@ function showMovieData(movies) {
     <div class="text-xs sm:text-base p-2 text-white inline-flex space-x-4">
         <p class="underline underline-offset-4">${genreNamebyId}</p>
     </div>
-
-    <!--segunda opcion-->
+    <!--BotonesLikes+Dislike-->
     <div class="flex flex-row gap-x-5 sm:gap-x-20 mt-5 mb-10">
         <div id="like-dislike" class="flex items-center space-x-2 px-2 mb-5 sm:mb-20">
             <button
@@ -72,6 +71,7 @@ function showMovieData(movies) {
                 <span>${totalDislikes}</span>
             </button>
         </div>
+        <!--BotonesToWatch+Watch-->
         <div id="actions" class="inline-block space-x-4">
             <button
                 class="inline-flex items-center justify-center w-8 h-8 bg-transparent border border-white rounded-full text-white focus:text-green-400 focus:bg-white hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-green-500">
