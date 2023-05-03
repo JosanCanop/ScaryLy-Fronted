@@ -116,7 +116,7 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
     </button>
     <input id="buscar"
         class="searchbar w-full p-2 rounded border-0 shadow form-input pl-16 placeholder-white text-white bg-gray-600"
-        placeholder="Busca tu película aquí" type="text">
+        placeholder="Busca tu película aquí" type="search">
 </div>
 <!--menu  hamburguesa-->
 <div>

@@ -2,7 +2,6 @@ import { carousel } from "./carrousel.js";
 //import { checkTokenOff } from "./tokenoff.js";
 
 //checkTokenOff()
-//let genreIdPassed = false;
 
 async function getMovies(idGenero) {
     try {
@@ -68,18 +67,6 @@ async function getGenres() {
         console.log(error)
     }
 }
-
-/*function toggleGetMovies(genreId, button) {
-    if (genreIdPassed) {
-        getMovies();
-        genreIdPassed = false;
-        button.classList.remove("bg-red-900");
-    } else {
-        getMovies(genreId);
-        genreIdPassed = true;
-        button.classList.add("bg-red-900");
-    }
-}*/
 
 function showGenreButtons(data) {
     const buttonsGenres = document.getElementById("btnGenres")
@@ -159,6 +146,64 @@ function showMoviesGenre(data) {
     }
 
 }
+
+const searchInput = document.getElementById("buscar")
+const search = searchInput.value
+
+async function filterMovies() {
+    try {
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+        let url = `http://localhost:1337/api/movies?populate=*&filters[$or][0][name][$containsi]=${search}&filters[$or][1][year][$containsi]=${search}`
+        const response = await fetch(url, requestOptions)
+
+        if (!response.ok) {
+
+            if (response.status == 401) {
+                localStorage.removeItem("token")
+                window.location.href = "index.html"
+            } else {
+                const message = `Error: ${response.status}`;
+                throw new Error(message);
+            }
+        }
+
+        const data = await response.json()
+        showSearchResult(data)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function showSearchResult(data) {
+    for (const resultado of data.data) {
+        document.getElementById("resutaldos").innerHTML += `<div class="w-4/5">
+        <a href="http://127.0.0.1:5501/detailmovie.html?id=${resultado.id}" id="resultado"
+            class="flex flex-row justify-start gap-x-8 h-fit hover:bg-gray-600 p-2 rounded-md">
+            <div class="basis-1/3">
+                <img src="${resultado.attributes.image}" alt="">
+            </div>
+            <div class="flex flex-col justify-start">
+                <p class="text-white">${resultado.attributes.name}</p>
+                <p class="text-white">${resultado.attributes.year}</p>
+            </div>
+        </a>
+    </div>`
+
+    }
+}
+
+
+searchInput.addEventListener('input', async () => {
+    if (searchInput.value != '') {
+        filterMovies()
+    }
+});
 
 getGenres()
 getMovies()
