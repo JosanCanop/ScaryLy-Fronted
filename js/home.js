@@ -2,7 +2,8 @@ import { carousel } from "./carrousel.js";
 import { checkTokenOff } from "./tokenoff.js";
 
 checkTokenOff()
-async function getGenresButtons() {
+async function getMovies(idGenero) {
+    console.log(idGenero)
     try {
         let myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
@@ -10,8 +11,43 @@ async function getGenresButtons() {
             method: 'GET',
             headers: myHeaders,
         };
-        const response = await fetch('http://localhost:1337/api/genres?populate=*', requestOptions)
 
+        let url
+        if (idGenero) {
+            url = `http://localhost:1337/api/genres/` + idGenero + `?populate=*`
+        } else {
+            url = `http://localhost:1337/api/genres?populate=*`
+        }
+        const response = await fetch(url, requestOptions)
+
+        if (!response.ok) {
+
+            if (response.status == 401) {
+                localStorage.removeItem("token")
+                window.location.href = "login.html"
+            } else {
+                const message = `Error: ${response.status}`;
+                throw new Error(message);
+            }
+        }
+
+        const data = await response.json()
+        showMoviesGenre(data)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+async function getGenres() {
+    try {
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+        let url = `http://localhost:1337/api/genres?populate=*`
+        const response = await fetch(url, requestOptions)
 
         if (!response.ok) {
 
@@ -26,24 +62,24 @@ async function getGenresButtons() {
 
         const data = await response.json()
         showGenreButtons(data)
-        showMoviesGenre(data)
 
     } catch (error) {
         console.log(error)
     }
 }
 
+
 function showGenreButtons(data) {
     const buttonsGenres = document.getElementById("btnGenres")
     for (let genre of data.data) {
-        buttonsGenres.innerHTML += `<button id="buton-${genre.id}"
+        buttonsGenres.innerHTML += `<button id="buton-${genre.id}" onclick="getMovies(${genre.id})"
             class=" m-1 hover:font-semibold border border-double  bg-opacity-70 border-white rounded-full px-3 py-2 hover:bg-red-900 text-white">${genre.attributes.name}</button>`
     }
+
 }
 
 function showMoviesGenre(data) {
     const carouselDinamic = document.getElementById("carouselDinamic")
-
     for (let genre of data.data) {
         let peliculas = ""
         for (const pelicula of genre.attributes.movies.data) {
@@ -56,7 +92,7 @@ function showMoviesGenre(data) {
         <div class="indicadores"></div>
     </div>
 
-    <div class="contenedor-principal mb-8">
+    <div id="contenedor-${genre.id}" class="contenedor-principal mb-8">
         <button role="button" id="flecha-izquierda-${genre.id}" class="flecha-izquierda"><i
                 class="fas fa-angle-left"></i></button>
 
@@ -75,7 +111,8 @@ function showMoviesGenre(data) {
     for (let genre of data.data) {
         carousel(genre.id)
     }
+
 }
 
-
-getGenresButtons()
+getGenres()
+getMovies()
