@@ -2,7 +2,7 @@ import { carousel } from "./carrousel.js";
 //import { checkTokenOff } from "./tokenoff.js";
 
 //checkTokenOff()
-let genreIdPassed = false;
+//let genreIdPassed = false;
 
 async function getMovies(idGenero) {
     try {
@@ -69,17 +69,17 @@ async function getGenres() {
     }
 }
 
-function toggleGetMovies(genreId, button) {
+/*function toggleGetMovies(genreId, button) {
     if (genreIdPassed) {
         getMovies();
         genreIdPassed = false;
-        button.classList.remove("focus:bg-red-900");
+        button.classList.remove("bg-red-900");
     } else {
         getMovies(genreId);
         genreIdPassed = true;
-        button.classList.add("focus:bg-red-900");
+        button.classList.add("bg-red-900");
     }
-}
+}*/
 
 function showGenreButtons(data) {
     //onclick="getMovies(${genre.id})"
@@ -92,9 +92,19 @@ function showGenreButtons(data) {
     }
     let buttonsGenre = document.querySelectorAll(".generosPelis")
     for (let button of buttonsGenre) {
+        let buttonActive = false; // inicialmente el botón está desactivado
         button.addEventListener("click", async () => {
             genreId = button.id.substring(7)
-            toggleGetMovies(genreId, button)
+
+            if (buttonActive) {
+                getMovies()
+                buttonActive = false;
+                button.classList.remove("bg-red-900")
+            } else {
+                getMovies(genreId);
+                buttonActive = true;
+                button.classList.add("bg-red-900")
+            }
         }, false)
     }
 }
