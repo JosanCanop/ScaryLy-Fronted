@@ -82,32 +82,45 @@ async function getGenres() {
 }*/
 
 function showGenreButtons(data) {
-    //onclick="getMovies(${genre.id})"
     const buttonsGenres = document.getElementById("btnGenres")
     let genreId = null;
+    let genreIdAntes = null;
+
     for (let genre of data.data) {
         buttonsGenres.innerHTML += `<button id="button-${genre.id}"
-            class="generosPelis m-1 hover:font-semibold border border-double  bg-opacity-70 border-white rounded-full px-3 py-2 hover:bg-red-900 text-white">${genre.attributes.name}</button>`
-
+        class="generosPelis m-1 hover:font-semibold border border-double bg-opacity-70 border-white rounded-full px-3 py-2 hover:bg-red-900 text-white">${genre.attributes.name}</button>`
     }
+
     let buttonsGenre = document.querySelectorAll(".generosPelis")
+
     for (let button of buttonsGenre) {
-        let buttonActive = false; // inicialmente el botón está desactivado
+        let buttonActive = false;
+
         button.addEventListener("click", async () => {
             genreId = button.id.substring(7)
 
             if (buttonActive) {
                 getMovies()
                 buttonActive = false;
-                button.classList.remove("bg-red-900")
+                button.classList.remove("bg-red-800")
             } else {
                 getMovies(genreId);
+
+                // si hay un género anteriormente seleccionado, cambia su estilo
+                if (genreIdAntes) {
+                    let buttonAntes = document.getElementById(`button-${genreIdAntes}`);
+                    buttonAntes.classList.remove("bg-red-800");
+                }
+
+                // establece el nuevo género seleccionado y cambia su estilo
+                genreIdAntes = genreId;
                 buttonActive = true;
-                button.classList.add("bg-red-900")
+                button.classList.add("bg-red-800")
             }
         }, false)
     }
 }
+
 
 function showMoviesGenre(data) {
     const carouselDinamic = document.getElementById("carouselDinamic")
