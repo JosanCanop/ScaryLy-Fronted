@@ -39,62 +39,55 @@ getMovie()
 function showMovieData(movies) {
     let movieData = document.getElementById("movieData")
     let totalLikes = movies.data.attributes.userslikes.data.length;
+    console.log(totalLikes)
     let totalDislikes = movies.data.attributes.usersdislikes.data.length;
     const genreNamebyId = movies.data.attributes.genres.data[0].attributes.name;
 
-    //const username = comments.data.find((movie) => movie.data.attributes.comments.data.id == comments.id);
-    //let bodyComment = movies.data.attributes.comments.data[0].attributes.comment
-
-
-
     movieData.innerHTML = `<!--informacion pelicula-->
-<div class="basis-11/12 sm:basis-2/3 ml-6 flex flex-col">
-    <h1 class="font-anton tracking-wider sm:text-3xl text-sm p-2 text-white">${movies.data.attributes.name}</h1>
-    <p class="text-xs sm:text-base p-2 text-white text-justify">${movies.data.attributes.description}</p>
-    <p class="text-xs sm:text-sm p-2 text-white">${movies.data.attributes.year}</p>
-
-    <!--genero pelicula, se pinta por js-->
-    <div class="text-xs sm:text-base p-2 text-white inline-flex space-x-4">
-        <p class="underline underline-offset-4">${genreNamebyId}</p>
-    </div>
-    <!--BotonesLikes+Dislike-->
-    <div class="flex flex-row gap-x-5 sm:gap-x-20 mt-5 mb-10">
-        <div id="like-dislike" class="flex items-center space-x-2 px-2 mb-5 sm:mb-20">
-            <button
-                class="inline-flex items-center justify-center text-white hover:text-green-400 focus:text-green-400 space-x-2 pr-4">
-                <i class="far fa-thumbs-up text-sm"></i>
-                <span>${totalLikes}</span>
-            </button>
-            <button
-                class="inline-flex items-center justify-center text-white hover:text-red-600 focus:text-red-600 space-x-2">
-                <i class="far fa-thumbs-down text-sm"></i>
-                <span>${totalDislikes}</span>
-            </button>
+    <div class="basis-11/12 sm:basis-2/3 ml-6 flex flex-col">
+        <h1 class="font-anton tracking-wider sm:text-3xl text-sm p-2 text-white">${movies.data.attributes.name}</h1>
+        <p class="text-xs sm:text-base p-2 text-white text-justify">${movies.data.attributes.description}</p>
+        <p class="text-xs sm:text-sm p-2 text-white">${movies.data.attributes.year}</p>
+        <!--genero pelicula, se pinta por js-->
+        <div class="text-xs sm:text-base p-2 text-white inline-flex space-x-4">
+            <p class="underline underline-offset-4">${genreNamebyId}</p>
         </div>
-        <!--BotonesToWatch+Watch-->
-        <div id="actions" class="inline-block space-x-4">
-            <button
-                class="inline-flex items-center justify-center w-8 h-8 bg-transparent border border-white rounded-full text-white focus:text-green-400 focus:bg-white hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-green-500">
-                <i class="far fa-eye text-sm"></i>
-            </button>
-
-            <button
-                class="inline-flex items-center justify-center w-8 h-8 bg-transparent border border-white rounded-full text-white focus:text-yellow-500 focus:bg-white hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-yellow-500">
-                <i class="fas fa-clock text-sm"></i>
-            </button>
+        <!--BotonesLikes+Dislike-->
+        <div class="flex flex-row gap-x-5 sm:gap-x-20 mt-5 mb-10">
+            <div id="like-dislike" class="flex items-center space-x-2 px-2 mb-5 sm:mb-20">
+                <button
+                    class="inline-flex items-center justify-center text-white hover:text-green-400 focus:text-green-400 space-x-2 pr-4">
+                    <i class="far fa-thumbs-up text-sm"></i>
+                    <span>${totalLikes}</span>
+                </button>
+                <button
+                    class="inline-flex items-center justify-center text-white hover:text-red-600 focus:text-red-600 space-x-2">
+                    <i class="far fa-thumbs-down text-sm"></i>
+                    <span>${totalDislikes}</span>
+                </button>
+            </div>
+            <!--BotonesToWatch+Watch-->
+            <div id="actions" class="inline-block space-x-4">
+                <button
+                    class="inline-flex items-center justify-center w-8 h-8 bg-transparent border border-white rounded-full text-white focus:text-green-400 focus:bg-white hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-green-500">
+                    <i class="far fa-eye text-sm"></i>
+                </button>
+                <button
+                    class="inline-flex items-center justify-center w-8 h-8 bg-transparent border border-white rounded-full text-white focus:text-yellow-500 focus:bg-white hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-yellow-500">
+                    <i class="fas fa-clock text-sm"></i>
+                </button>
+            </div>
         </div>
     </div>
-</div>
+    <!--poster pelicula-->
+    <div class="poster basis-1/4 mx-auto md:mx-0">
+        <img src="${movies.data.attributes.image}"
+            alt="póster película" class="w-sm sm:w-lg">
+    </div>
+    `;
 
-<!--poster pelicula-->
-<div class="poster basis-1/4 mx-auto md:mx-0">
-    <img src="${movies.data.attributes.image}"
-        alt="póster película" class="w-sm sm:w-lg">
-</div>
-`;
     const allComments = movies.data.attributes.comments.data
     document.getElementById("contadorComentarios").innerHTML = allComments.length
-
 
     let html = ""
 
@@ -259,3 +252,29 @@ function askDelete(commentId) {
             }
         });
 }
+
+
+/*function saveLikes() {
+
+    updateProfile(raw)
+}
+
+async function updateProfile(data) {
+    try {
+        const response = await fetch('http://localhost:1337/api/users/' + userId, {
+            method: "PUT",
+            body: data,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        });
+        if (!response.ok) {
+            const message = `Error: ${response.status}`;
+            throw new Error(message);
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+*/
