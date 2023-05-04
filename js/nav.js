@@ -110,14 +110,7 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
 
 </div>
 <!--barra de búsqueda-->
-<div id="search" class="flex items-center w-1/3 sm:w-auto">
-    <button id="btn" class="absolute bg-transparent border-0 w-10">
-        <i class="fas fa-search text-sm text-white text-2xl px-1 py-1"></i>
-    </button>
-    <input id="buscar"
-        class="searchbar w-full p-2 rounded border-0 shadow form-input pl-16 placeholder-white text-white bg-gray-600"
-        placeholder="Busca tu película aquí" type="search">
-</div>
+
 <!--menu  hamburguesa-->
 <div>
     <button type="button" onclick="verMenu()" class="lg:hidden pr-5" id="dropdownHoverButton3"
@@ -149,7 +142,7 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
                 aria-labelledby="dropdownHoverButton3">
                 <li>
                     <a class="block px-4 py-2 hover:bg-gray-500 text-white"
-                        href="">Inicio</a>
+                        href="home.html">Inicio</a>
                 </li>
                 <li>
                     <a href=" peliculasfavoritas.html"

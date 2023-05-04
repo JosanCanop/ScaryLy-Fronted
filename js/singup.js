@@ -1,4 +1,4 @@
-import { checkTokenOn } from "./tokenon"
+import { checkTokenOn } from "./tokenon.js"
 
 checkTokenOn()
 

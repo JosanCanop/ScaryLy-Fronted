@@ -3,11 +3,27 @@ import { carousel } from "./carrousel.js";
 
 //checkTokenOff()
 
+const hamburguesita = document.getElementById("hamburguesita")
+hamburguesita.addEventListener('click', () => {
+    verMenu()
+})
+
+
 function verMenu() {
     document.getElementById("menu").classList.toggle("hidden");
 }
 
-function exitLogin() {
+const btnCloseSesion = document.getElementById("closeSesion")
+btnCloseSesion.addEventListener('click', () => {
+    exitLoginTwo()
+})
+const closeSesionHamburguer = document.getElementById("closeSesionHamburguer")
+closeSesionHamburguer.addEventListener('click', () => {
+    exitLoginTwo()
+})
+
+
+function exitLoginTwo() {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     localStorage.removeItem("idUser")
