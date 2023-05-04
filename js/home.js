@@ -3,6 +3,57 @@ import { carousel } from "./carrousel.js";
 
 //checkTokenOff()
 
+function verMenu() {
+    document.getElementById("menu").classList.toggle("hidden");
+}
+
+function exitLogin() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    localStorage.removeItem("idUser")
+    window.location.href = "index.html"
+}
+
+const token = localStorage.getItem("token");
+
+async function obtenerUser() {
+    try {
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + token);
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+        const response = await fetch('http://localhost:1337/api/users/me', requestOptions)
+
+
+        if (!response.ok) {
+
+            if (response.status == 401) {
+                localStorage.removeItem("token")
+                window.location.href = "login.html"
+            } else {
+                const message = `Error: ${response.status}`;
+                throw new Error(message);
+            }
+        }
+
+        const data = await response.json()
+        showDataUser(data)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+function showDataUser(data) {
+
+    const userName = document.getElementById("userName")
+    userName.innerHTML = `${data.username}`
+}
+
+obtenerUser()
+
 async function getMovies(idGenero) {
     try {
         let myHeaders = new Headers();
@@ -116,7 +167,7 @@ function showMoviesGenre(data) {
         let peliculas = ""
         for (const pelicula of genre.attributes.movies.data) {
             peliculas += `<div class="pelicula">
-        <a href="http://127.0.0.1:5501/detailmovie.html?id=${pelicula.id}"><img src="${pelicula.attributes.image}" alt=""></a>
+        <a href="http://127.0.0.1:5501/detailmovie.html?id=${pelicula.id}"><img src="http://gnula.nu/wp-content/uploads/2018/12/El_milagro_de_P_Tinto_poster_espa%C3%B1ol.jpg" alt=""></a>
     </div>`
         }
 
@@ -148,9 +199,9 @@ function showMoviesGenre(data) {
 }
 
 const searchInput = document.getElementById("buscar")
-const search = searchInput.value
 
 async function filterMovies() {
+    const search = searchInput.value
     try {
         let myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
@@ -180,9 +231,11 @@ async function filterMovies() {
     }
 }
 
+const resutaldosBusqueda = document.getElementById("resultados")
+
 function showSearchResult(data) {
     for (const resultado of data.data) {
-        document.getElementById("resutaldos").innerHTML += `<div class="w-4/5">
+        resutaldosBusqueda.innerHTML += `<div class="w-4/5">
         <a href="http://127.0.0.1:5501/detailmovie.html?id=${resultado.id}" id="resultado"
             class="flex flex-row justify-start gap-x-8 h-fit hover:bg-gray-600 p-2 rounded-md">
             <div class="basis-1/3">
@@ -198,10 +251,22 @@ function showSearchResult(data) {
     }
 }
 
+const btnSearch = document.getElementById("btnSearch")
+btnSearch.addEventListener('click', async () => {
+    filterMovies()
+})
+
+const sectionCarousel = document.getElementById("mainSection")
+const resultadosSearch = document.getElementById("resultados-busqueda")
 
 searchInput.addEventListener('input', async () => {
-    if (searchInput.value != '') {
-        filterMovies()
+    if (searchInput.value === '') {
+        sectionCarousel.classList.remove("hidden")
+        resultadosSearch.classList.add("hidden")
+        resutaldosBusqueda.innerHTML = ""
+    } else {
+        sectionCarousel.classList.add("hidden")
+        resultadosSearch.classList.remove("hidden")
     }
 });
 
