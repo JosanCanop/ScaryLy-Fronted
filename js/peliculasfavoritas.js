@@ -33,7 +33,6 @@ async function getMoviesLikesUser() {
 }
 
 let arrayAllLikes = [];
-let movieId;
 
 function showMoviesUser(data) {
     const moviesLikes = document.getElementById("moviesLikes");
@@ -42,12 +41,12 @@ function showMoviesUser(data) {
         <a href="http://127.0.0.1:5501/detailmovie.html?id=${movie.id}">
             <figure class="snip0023 rounded-lg">
                 <img src="${movie.image}" alt="">
-                <div>
-                    <button type="button" class="idButton" id="btn-${movie.id}"><i class="ion-ios-trash-outline text-xs"></i></button>
-                    <div class="curl"></div>
-                </div>
             </figure>
         </a>
+        <div>
+        <button type="button" class="idButton" id="btn-${movie.id}"><i class="ion-ios-trash-outline text-xs"></i></button>
+        <div class="curl"></div>
+        </div>
     </div>
     `
         const btnDelete = document.getElementById(`btn-${movie.id}`);
@@ -55,12 +54,9 @@ function showMoviesUser(data) {
             remove(movie.id);
         });
 
-        btnDelete.addEventListener('click', (event) => {
-            event.preventDefault(); // Cancelar comportamiento predeterminado del evento de clic
-            // Agregar cualquier otra acción que desee realizar aquí
-        });
-        return movie.id;
+        //return movie.id;
     });
+
     document.getElementById("contadorLikes").innerHTML = '(' + arrayAllLikes.length + ')'
 }
 
