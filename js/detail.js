@@ -16,7 +16,7 @@ async function getMovie() {
             redirect: 'follow'
         };
 
-        const response = await fetch("http://localhost:1337/api/movies/" + movieId + "?populate=comments,comments.user,userslikes,usersdislikes,genres", requestOptions)
+        const response = await fetch(urlBase + "/movies/" + movieId + "?populate=comments,comments.user,userslikes,usersdislikes,genres", requestOptions)
 
         if (!response.ok) {
             if (response.status == 401) {
@@ -147,7 +147,7 @@ async function updateComment(commentId) {
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
         myHeaders.append("Content-Type", "application/json");
-        const response = await fetch(`http://localhost:1337/api/comments/` + commentId, {
+        const response = await fetch(urlBase + `/comments/` + commentId, {
             method: "PUT",
             body: raw,
             headers: myHeaders,
@@ -191,7 +191,7 @@ async function createComment() {
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
         myHeaders.append("Content-Type", "application/json");
-        const response = await fetch('http://localhost:1337/api/comments', {
+        const response = await fetch(urlBase + '/comments', {
             method: "POST",
             body: raw,
             headers: myHeaders,
@@ -218,7 +218,7 @@ async function deleteComment(commentId) {
     try {
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem('token'));
-        const response = await fetch(`http://localhost:1337/api/comments/` + commentId, {
+        const response = await fetch(urlBase + `/comments/` + commentId, {
             method: 'DELETE',
             headers: myHeaders,
             redirect: 'follow'

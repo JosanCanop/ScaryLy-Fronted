@@ -40,7 +40,7 @@ async function obtenerUser() {
             method: 'GET',
             headers: myHeaders,
         };
-        const response = await fetch('http://localhost:1337/api/users/me', requestOptions)
+        const response = await fetch(urlBase + '/users/me', requestOptions)
 
 
         if (!response.ok) {
@@ -81,9 +81,9 @@ async function getMovies(idGenero) {
 
         let url
         if (idGenero) {
-            url = `http://localhost:1337/api/genres/?populate=*&filters[id][$eq]=${idGenero}`
+            url = urlBase + `/genres/?populate=*&filters[id][$eq]=${idGenero}`
         } else {
-            url = `http://localhost:1337/api/genres?populate=*`
+            url = urlBase + `/genres?populate=*`
         }
         const response = await fetch(url, requestOptions)
 
@@ -113,7 +113,7 @@ async function getGenres() {
             method: 'GET',
             headers: myHeaders,
         };
-        let url = `http://localhost:1337/api/genres?populate=*`
+        let url = urlBase + `/genres?populate=*`
         const response = await fetch(url, requestOptions)
 
         if (!response.ok) {
@@ -225,7 +225,7 @@ async function filterMovies() {
             method: 'GET',
             headers: myHeaders,
         };
-        let url = `http://localhost:1337/api/movies?populate=*&filters[$or][0][name][$containsi]=${search}&filters[$or][1][year][$containsi]=${search}`
+        let url = urlBase + `/movies?populate=*&filters[$or][0][name][$containsi]=${search}&filters[$or][1][year][$containsi]=${search}`
         const response = await fetch(url, requestOptions)
 
         if (!response.ok) {

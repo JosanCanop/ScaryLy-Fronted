@@ -19,7 +19,7 @@ async function obtenerUser() {
             method: 'GET',
             headers: myHeaders,
         };
-        const response = await fetch('http://localhost:1337/api/users/me', requestOptions)
+        const response = await fetch(urlBase + '/users/me', requestOptions)
 
 
         if (!response.ok) {

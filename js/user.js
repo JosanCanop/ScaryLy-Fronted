@@ -38,7 +38,7 @@ async function obtenerDatosUser() {
             method: 'GET',
             headers: myHeaders,
         };
-        const response = await fetch('http://localhost:1337/api/users/me', requestOptions)
+        const response = await fetch(urlBase + '/users/me', requestOptions)
 
 
         if (!response.ok) {
@@ -80,7 +80,7 @@ async function updateDatosUser(form) {
     try {
         const formData = new FormData(form)
         const urlencoded = new URLSearchParams(formData).toString()
-        const response = await fetch('http://localhost:1337/api/users/' + userId, {
+        const response = await fetch(urlBase + '/users/' + userId, {
             method: "PUT",
             body: urlencoded,
             headers: {
@@ -107,7 +107,7 @@ async function updateDatosUser(form) {
 
 async function deleteUser() {
     try {
-        const response = await fetch('http://localhost:1337/api/users/' + userId, {
+        const response = await fetch(urlBase + '/users/' + userId, {
             method: "DELETE",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")

@@ -13,7 +13,7 @@ async function loginUser(form) {
     try {
         const formData = new FormData(form)
         const queryString = new URLSearchParams(formData).toString()
-        const response = await fetch('http://localhost:1337/api/auth/local', {
+        const response = await fetch(urlBase + '/auth/local', {
             method: "POST",
             body: queryString, headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
