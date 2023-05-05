@@ -36,46 +36,42 @@ let arrayAllLikes = [];
 let movieId;
 
 function showMoviesUser(data) {
-    document.getElementById("contadorLikes").innerHTML = '(' + arrayAllLikes.length + ')'
-    const moviesLikes = document.getElementById("moviesLikes")
-    for (const movie of data.likes) {
-        arrayAllLikes.push(movie.id);
-
+    const moviesLikes = document.getElementById("moviesLikes");
+    arrayAllLikes = data.likes.map(movie => {
         moviesLikes.innerHTML += `<div class="pelicula">
-    <a href="http://127.0.0.1:5501/detailmovie.html?id=${movie.id}">
-        <figure class="snip0023 rounded-lg">
-            <img src="${movie.image}" alt="">
-            <div>
-                <button class="idButton" id="btn-${movie.id}"><i class="ion-ios-trash-outline text-xs"></i></button>
-                <div class="curl"></div>
-            </div>
-        </figure>
-    </a>
-</div>`
+        <a href="http://127.0.0.1:5501/detailmovie.html?id=${movie.id}">
+            <figure class="snip0023 rounded-lg">
+                <img src="${movie.image}" alt="">
+                <div>
+                    <button type="button" class="idButton" id="btn-${movie.id}"><i class="ion-ios-trash-outline text-xs"></i></button>
+                    <div class="curl"></div>
+                </div>
+            </figure>
+        </a>
+    </div>
+    `
         const btnDelete = document.getElementById(`btn-${movie.id}`);
         btnDelete.addEventListener("click", () => {
-            remove()
+            remove(movie.id);
         });
-    }
-    let buttonsDelete = document.querySelectorAll(".idButton")
-    movieId;
-    for (const button of buttonsDelete) {
-        let movieId = button.id.substring(4);
-        button.addEventListener("click", () => {
-            remove(movieId);
-        });
-    }
 
+        btnDelete.addEventListener('click', (event) => {
+            event.preventDefault(); // Cancelar comportamiento predeterminado del evento de clic
+            // Agregar cualquier otra acción que desee realizar aquí
+        });
+        return movie.id;
+    });
+    document.getElementById("contadorLikes").innerHTML = '(' + arrayAllLikes.length + ')'
 }
 
 getMoviesLikesUser()
 
 
-async function updateProfile(data) {
+async function updateProfile(raw) {
     try {
         const response = await fetch(urlBase + '/users/' + localStorage.getItem("idUser"), {
             method: "PUT",
-            body: data,
+            body: raw,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("token")
@@ -92,20 +88,18 @@ async function updateProfile(data) {
     }
 }
 
-function remove() {
-    arrayAllLikes;
+function remove(movieId) {
     for (var i = 0; i < arrayAllLikes.length; i++) {
         if (arrayAllLikes[i].id == movieId) {
             arrayAllLikes.splice(i, 1);
+            break;
         }
     }
     const myLikesIds = arrayAllLikes.map(x => x.id);
-
-    var raw = JSON.stringify({
-        "likes": myLikesIds
-    })
-    updateProfile(raw)
+    var raw = JSON.stringify({ "likes": myLikesIds });
+    updateProfile(raw);
 }
+
 
 
 
