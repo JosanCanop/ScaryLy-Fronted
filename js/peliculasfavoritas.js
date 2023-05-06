@@ -4,17 +4,15 @@ checkTokenOff()
 
 async function getMoviesLikesUser() {
     try {
-        let myHeaders = new Headers();
+        const myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-        var requestOptions = {
+        const requestOptions = {
             method: 'GET',
             headers: myHeaders,
         };
-        const response = await fetch(urlBase + '/users/me?populate=*', requestOptions)
-
+        const response = await fetch(urlBase + '/users/me?populate=*', requestOptions);
 
         if (!response.ok) {
-
             if (response.status == 401) {
                 localStorage.removeItem("token")
                 window.location.href = "login.html"
@@ -24,46 +22,50 @@ async function getMoviesLikesUser() {
             }
         }
 
-        const data = await response.json()
-        showMoviesUser(data)
+        const data = await response.json();
+        showMoviesUser(data);
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
 let arrayAllLikes = [];
-
+console.log(arrayAllLikes)
 function showMoviesUser(data) {
+    let btnId = null;
     const moviesLikes = document.getElementById("moviesLikes");
-    arrayAllLikes = data.likes.map(movie => {
+    for (const movie of data.likes) {
+        arrayAllLikes.push(movie.id);
         moviesLikes.innerHTML += `<div class="pelicula">
-        <a href="http://127.0.0.1:5501/detailmovie.html?id=${movie.id}">
-            <figure class="snip0023 rounded-lg">
-                <img src="${movie.image}" alt="">
-            </figure>
-        </a>
-        <div>
-        <button type="button" class="idButton" id="btn-${movie.id}"><i class="ion-ios-trash-outline text-xs"></i></button>
-        <div class="curl"></div>
-        </div>
-    </div>
-    `
-        const btnDelete = document.getElementById(`btn-${movie.id}`);
-        btnDelete.addEventListener("click", () => {
-            remove(movie.id);
-        });
+                <a href="http://127.0.0.1:5501/detailmovie.html?id=${movie.id}">
+                    <figure class="snip0023 rounded-lg">
+                        <img src="${movie.image}" alt="">
+                    </figure>
+                </a>
+                <div>
+                <button type="button" class="idButton" id="btn-${movie.id}"><i class="ion-ios-trash-outline text-xs"></i></button>
+                <div class="curl"></div>
+                </div>
+            </div>`
+    };
+    document.getElementById("contadorLikes").innerHTML = '(' + arrayAllLikes.length + ')';
+    let btnsDelete = document.querySelectorAll('.idButton');
+    // btnDelete.addEventListener("click", remove(movie.id))
+    for (const btn of btnsDelete) {
+        btn.addEventListener('click', () => {
+            btnId = btn.id.substring(4)
+            remove(btnId)
+        })
+    }
 
-        //return movie.id;
-    });
-
-    document.getElementById("contadorLikes").innerHTML = '(' + arrayAllLikes.length + ')'
 }
 
-getMoviesLikesUser()
+getMoviesLikesUser();
 
 
 async function updateProfile(raw) {
+    console.log(raw)
     try {
         const response = await fetch(urlBase + '/users/' + localStorage.getItem("idUser"), {
             method: "PUT",
@@ -77,26 +79,22 @@ async function updateProfile(raw) {
             const message = `Error: ${response.status}`;
             throw new Error(message);
         }
-        //alert("borrar¿?")
-        location.reload()
+        location.reload();
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 
 function remove(movieId) {
+    console.log(movieId)
     for (var i = 0; i < arrayAllLikes.length; i++) {
-        if (arrayAllLikes[i].id == movieId) {
+        if (arrayAllLikes[i] == movieId) {
             arrayAllLikes.splice(i, 1);
-            break;
         }
     }
-    const myLikesIds = arrayAllLikes.map(x => x.id);
-    var raw = JSON.stringify({ "likes": myLikesIds });
-    updateProfile(raw);
+    let myLikesIds = arrayAllLikes.map(x => x);
+    let raw = JSON.stringify({
+        "likes": myLikesIds
+    })
+    updateProfile(raw)
 }
-
-
-
-
-
