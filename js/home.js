@@ -183,7 +183,7 @@ function showMoviesGenre(data) {
         let peliculas = ""
         for (const pelicula of genre.attributes.movies.data) {
             peliculas += `<div class="pelicula">
-        <a href="http://127.0.0.1:5501/detailmovie.html?id=${pelicula.id}"><img src="http://gnula.nu/wp-content/uploads/2018/12/El_milagro_de_P_Tinto_poster_espa%C3%B1ol.jpg" alt=""></a>
+        <a href="http://127.0.0.1:5501/detailmovie.html?id=${pelicula.id}"><img src="${pelicula.attributes.image}""></a>
     </div>`
         }
 
@@ -214,7 +214,7 @@ function showMoviesGenre(data) {
 
 }
 
-const searchInput = document.getElementById("buscar")
+const searchInput = document.getElementById("inputBuscar")
 
 async function filterMovies() {
     const search = searchInput.value
@@ -269,8 +269,11 @@ function showSearchResult(data) {
 
 const btnSearch = document.getElementById("btnSearch")
 btnSearch.addEventListener('click', async () => {
+    resutaldosBusqueda.innerHTML = ""
     filterMovies()
+
 })
+
 
 const sectionCarousel = document.getElementById("mainSection")
 const resultadosSearch = document.getElementById("resultados-busqueda")
@@ -283,6 +286,15 @@ searchInput.addEventListener('input', async () => {
     } else {
         sectionCarousel.classList.add("hidden")
         resultadosSearch.classList.remove("hidden")
+        resutaldosBusqueda.innerHTML = ""
+    }
+});
+
+searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // previene el comportamiento predeterminado del Enter
+        resutaldosBusqueda.innerHTML = ""
+        filterMovies()
     }
 });
 

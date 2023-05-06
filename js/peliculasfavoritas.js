@@ -30,8 +30,6 @@ async function getMoviesLikesUser() {
     }
 }
 
-let arrayAllLikes = [];
-console.log(arrayAllLikes)
 function showMoviesUser(data) {
     let btnId = null;
     const moviesLikes = document.getElementById("moviesLikes");
@@ -51,11 +49,10 @@ function showMoviesUser(data) {
     };
     document.getElementById("contadorLikes").innerHTML = '(' + arrayAllLikes.length + ')';
     let btnsDelete = document.querySelectorAll('.idButton');
-    // btnDelete.addEventListener("click", remove(movie.id))
     for (const btn of btnsDelete) {
         btn.addEventListener('click', () => {
             btnId = btn.id.substring(4)
-            remove(btnId)
+            removeLike(btnId)
         })
     }
 
@@ -63,6 +60,7 @@ function showMoviesUser(data) {
 
 getMoviesLikesUser();
 
+let arrayAllLikes = [];
 
 async function updateProfile(raw) {
     console.log(raw)
@@ -85,7 +83,7 @@ async function updateProfile(raw) {
     }
 }
 
-function remove(movieId) {
+function removeLike(movieId) {
     console.log(movieId)
     for (var i = 0; i < arrayAllLikes.length; i++) {
         if (arrayAllLikes[i] == movieId) {
