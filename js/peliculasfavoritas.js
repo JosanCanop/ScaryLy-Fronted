@@ -41,7 +41,7 @@ function showMoviesUser(data) {
                         <img src="${movie.image}" alt="poster-pelicula" class="rounded-lg shadow-lg">
                 </a>
                 <div class="pt-5">
-                <button type="button" class="idButton" id="btn-${movie.id}"><i class="fas fa-trash text-xl"></i></button>
+                <button type="button" class="idButton" id="btn-${movie.id}"><i class="fas fa-trash text-md text-black"></i></button>
                 </div>
             </div>
             </div>`
