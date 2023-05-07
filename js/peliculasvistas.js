@@ -37,16 +37,15 @@ function showMoviesWatched(data) {
     const moviesWatched = document.getElementById("moviesWatched");
     for (const movie of data.watched) {
         arrayWatched.push(movie.id);
-        moviesWatched.innerHTML += `<div class="pelicula">
+        moviesWatched.innerHTML += `<div class="pelicula flex flex-col items-center bg-gray-700 hover:bg-gray-600 opacity-90 p-3 rounded-lg shadow-lg">
+        <div class="pelicula flex flex-col items-center">
                 <a href="./detailmovie.html?id=${movie.id}">
-                    <figure class="snip0023 rounded-lg">
-                        <img src="${movie.image}" alt="">
-                    </figure>
+                        <img src="${movie.image}" alt="poster-pelicula" class="rounded-lg shadow-lg">
                 </a>
-                <div>
-                <button type="button" class="idButton" id="btn-${movie.id}"><i class="ion-ios-trash-outline text-xs"></i></button>
-                <div class="curl"></div>
+                <div class="pt-5">
+                <button type="button" class="idButton" id="btn-${movie.id}"><i class="fas fa-trash text-xl"></i></button>
                 </div>
+            </div>
             </div>`
     };
     document.getElementById("contadorWatched").innerHTML = '(' + arrayWatched.length + ')';
