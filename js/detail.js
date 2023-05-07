@@ -1,6 +1,5 @@
-import { checkTokenOff } from "./tokenoff.js";
-
-checkTokenOff()
+//import { checkTokenOff } from "./tokenoff.js";
+//checkTokenOff()
 
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
