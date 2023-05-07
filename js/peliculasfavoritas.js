@@ -36,7 +36,7 @@ function showMoviesUser(data) {
     for (const movie of data.likes) {
         arrayAllLikes.push(movie.id);
         moviesLikes.innerHTML += `<div class="pelicula">
-                <a href="http://127.0.0.1:5501/detailmovie.html?id=${movie.id}">
+                <a href="./detailmovie.html?id=${movie.id}">
                     <figure class="snip0023 rounded-lg">
                         <img src="${movie.image}" alt="">
                     </figure>

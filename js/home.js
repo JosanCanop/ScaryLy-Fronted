@@ -175,7 +175,6 @@ function showGenreButtons(data) {
     }
 }
 
-
 function showMoviesGenre(data) {
     const carouselDinamic = document.getElementById("carouselDinamic")
     carouselDinamic.innerHTML = ""
@@ -183,7 +182,7 @@ function showMoviesGenre(data) {
         let peliculas = ""
         for (const pelicula of genre.attributes.movies.data) {
             peliculas += `<div class="pelicula">
-        <a href="http://127.0.0.1:5501/detailmovie.html?id=${pelicula.id}"><img src="${pelicula.attributes.image}""></a>
+        <a href="./detailmovie.html?id=${pelicula.id}"><img src="${pelicula.attributes.image}""></a>
     </div>`
         }
 
