@@ -114,7 +114,7 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
 <!--menu  hamburguesa-->
 <div>
     <button type="button" onclick="verMenu()" class="lg:hidden pr-5" id="dropdownHoverButton3"
-        data-dropdown-toggle="dropdownHover3" data-dropdown-trigger="hover"
+        data-dropdown-toggle="dropdownHover3" data-dropdown-trigger="click"
         class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
         type="button">
         <svg width='24px' height='24px' viewBox='0 0 24 24' version='1.1' xmlns='http://www.w3.org/2000/svg'
@@ -150,21 +150,21 @@ navbar.innerHTML = `<div class="container flex flex-row flex-nowrap items-center
                 </li>
                 <li>
                     <a href="peliculaspendientes.html"
-                        class="block px-4 py-2 bg-gray-500 text-white">Películas
+                        class="block px-4 py-2 hover:bg-gray-500 text-white">Películas
                         pendientes</a>
                 </li>
                 <li>
                     <a href="peliculasvistas.html"
-                        class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Películas
+                        class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Películas
                         vistas</a>
                 </li>
                 <li>
                     <a href="user.html"
-                        class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600 hover:text-white">Ver
+                        class="block px-4 py-2 hover:bg-gray-600 hover:text-white">Ver
                         perfil</a>
                 </li>
                 <li>
-                    <button onclick="exitLogin()" class="block px-4 py-2 hover:bg-gray-100 hover:bg-gray-600
+                    <button onclick="exitLogin()" class="block px-4 py-2 hover:bg-gray-600
             hover:text-white w-full text-left">Cerrar
                         sesión
                     </button>

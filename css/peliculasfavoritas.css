@@ -5,19 +5,19 @@ h1 {
     font-family: 'Anton', sans-serif;
 }
 
-button {
+.idButton {
     position: relative;
     border-radius: 4em;
     cursor: pointer;
 }
 
-button:hover {
+.idButton:hover {
     transition-duration: 0.1s;
     background-color: #ffffff;
     padding: 8px 12px;
 }
 
-button:after {
+.idButton:after {
     content: "";
     display: block;
     position: absolute;
@@ -31,7 +31,7 @@ button:after {
     box-shadow: 0 0 10px 40px white;
 }
 
-button:active:after {
+.idButton:active:after {
     box-shadow: 0 0 0 0 white;
     position: absolute;
     border-radius: 4em;
@@ -41,10 +41,10 @@ button:active:after {
     transition: 0s;
 }
 
-button:active {
+.idButton:active {
     top: 1px;
 }
 
-.pelicula img:hover {
+.idButton img:hover {
     transform: scale(1.1);
 }

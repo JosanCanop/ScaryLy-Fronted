@@ -277,14 +277,19 @@ btnSearch.addEventListener('click', async () => {
 const sectionCarousel = document.getElementById("mainSection")
 const resultadosSearch = document.getElementById("resultados-busqueda")
 
+
 searchInput.addEventListener('input', async () => {
     if (searchInput.value === '') {
+        console.log("ocultar")
         sectionCarousel.classList.remove("hidden")
         resultadosSearch.classList.add("hidden")
+        resultadosSearch.classList.remove("flex")
         resutaldosBusqueda.innerHTML = ""
     } else {
+        console.log("mostrar")
         sectionCarousel.classList.add("hidden")
         resultadosSearch.classList.remove("hidden")
+        resultadosSearch.classList.add("flex")
         resutaldosBusqueda.innerHTML = ""
     }
 });

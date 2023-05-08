@@ -33,7 +33,7 @@ async function getMovie() {
         console.log(error)
     }
 }
-getMovie()
+getInfoUser()
 
 function showMovieData(movies) {
     let movieData = document.getElementById("movieData")
@@ -129,6 +129,11 @@ function showMovieData(movies) {
         btnLikeId = btnsUpdateLike.id.substring(8)
         updateLikes(btnLikeId)
     })
+    if (arrayAllLikes.includes(parseInt(movieId))) {
+        btnsUpdateLike.classList.replace("text-white", "text-green-400")
+    } else {
+        btnsUpdateLike.classList.replace("text-green-400", "text-white")
+    }
 
     //boton dislike
     let btnDisikeId = null;
@@ -137,6 +142,11 @@ function showMovieData(movies) {
         btnDisikeId = btnsUpdateDisike.id.substring(11)
         updateDisLikes(btnDisikeId)
     })
+    if (arrayAllDislikes.includes(parseInt(movieId))) {
+        btnsUpdateDisike.classList.replace("text-white", "text-red-600")
+    } else {
+        btnsUpdateDisike.classList.replace("text-red-600", "text-white")
+    }
 
     //boton watched
     let btnWatchedId = null;
@@ -145,6 +155,12 @@ function showMovieData(movies) {
         btnWatchedId = btnsUpdateWatched.id.substring(11)
         updateWatched(btnWatchedId)
     })
+    if (arrayAllWatched.includes(parseInt(movieId))) {
+        btnsUpdateWatched.classList.replace("text-white", "text-green-400")
+        btnsUpdateWatched.classList.replace("bg-transparent", "bg-white")
+    } else {
+        btnsUpdateWatched.classList.replace("text-yellow-500", "text-white")
+    }
 
     //boton Towatch
     let btnToWatchId = null;
@@ -153,24 +169,40 @@ function showMovieData(movies) {
         btnToWatchId = btnsUpdateToWatch.id.substring(11)
         updateToWatch(btnToWatchId)
     })
+    if (arrayAllToWatch.includes(parseInt(movieId))) {
+        btnsUpdateToWatch.classList.replace("text-white", "text-gr-400")
+        btnsUpdateToWatch.classList.replace("bg-transparent", "bg-white")
+    } else {
+        btnsUpdateToWatch.classList.replace("text-green-400", "text-white")
+    }
 
     //botones comments
     let idBtn = null;
-    let btnUpdateComment = document.querySelector(".updateComment")
-    let btnEditComment = document.querySelector(".editComment")
-    let btnDeleteComment = document.querySelector(".deleteComment")
-    btnUpdateComment.addEventListener('click', () => {
-        idBtn = btnUpdateComment.id.substring(6)
-        updateComment(idBtn)
-    })
-    btnEditComment.addEventListener('click', () => {
-        idBtn = btnEditComment.id.substring(8)
-        editComment(idBtn)
-    })
-    btnDeleteComment.addEventListener('click', () => {
-        idBtn = btnDeleteComment.id.substring(10)
-        askDelete(idBtn)
-    })
+    let btnUpdateComment = document.querySelectorAll(".updateComment")
+    let btnEditComment = document.querySelectorAll(".editComment")
+    let btnDeleteComment = document.querySelectorAll(".deleteComment")
+
+    for (const btnUpdate of btnUpdateComment) {
+        btnUpdate.addEventListener('click', () => {
+            idBtn = btnUpdate.id.substring(6)
+            updateComment(idBtn)
+        })
+    }
+
+    for (const btnEdit of btnEditComment) {
+        btnEdit.addEventListener('click', () => {
+            idBtn = btnEdit.id.substring(8)
+            editComment(idBtn)
+        })
+    }
+
+    for (const btnDelete of btnDeleteComment) {
+        btnDelete.addEventListener('click', () => {
+            idBtn = btnDelete.id.substring(10)
+            askDelete(idBtn)
+        })
+    }
+
 }
 
 
@@ -350,10 +382,9 @@ function showMoviesUser(data) {
     for (const towatch of data.towatch) {
         arrayAllToWatch.push(towatch.id);
     };
-
+    getMovie()
 }
 
-getInfoUser()
 
 //Funciones para cada boton
 let arrayAllLikes = [];
@@ -383,30 +414,48 @@ async function updateProfile(raw) {
 }
 
 function updateLikes(movieId) {
+    let toUpdate = {};
     if (arrayAllLikes.includes(parseInt(movieId))) {
         let index = arrayAllLikes.indexOf(parseInt(movieId));
         arrayAllLikes.splice(index, 1);
     } else {
+        //si no tiene like
         arrayAllLikes.push(parseInt(movieId));
+        // pero si está en dislikes, quitarle el dislike y poner el like
+        if (arrayAllDislikes.includes(parseInt(movieId))) {
+            let index = arrayAllDislikes.indexOf(parseInt(movieId));
+            arrayAllDislikes.splice(index, 1);
+            let mytowatchIdsDislike = arrayAllDislikes.map((x) => x);
+            toUpdate.dislikes = mytowatchIdsDislike;
+        }
+
     }
     let mytowatchIds = arrayAllLikes.map(x => x);
-    let raw = JSON.stringify({
-        "likes": mytowatchIds
-    })
+    toUpdate.likes = mytowatchIds;
+    let raw = JSON.stringify(toUpdate)
     updateProfile(raw);
 }
 
 function updateDisLikes(movieId) {
+    let toUpdate = {};
     if (arrayAllDislikes.includes(parseInt(movieId))) {
         let index = arrayAllDislikes.indexOf(parseInt(movieId));
         arrayAllDislikes.splice(index, 1);
     } else {
+        // si no tiene dislike
         arrayAllDislikes.push(parseInt(movieId));
+
+        // pero si está en likes, quitarle el like y poner el dislike
+        if (arrayAllLikes.includes(parseInt(movieId))) {
+            let index = arrayAllLikes.indexOf(parseInt(movieId));
+            arrayAllLikes.splice(index, 1);
+            let mytowatchIdsLike = arrayAllLikes.map((x) => x);
+            toUpdate.likes = mytowatchIdsLike;
+        }
     }
-    let mytowatchIds = arrayAllDislikes.map(x => x);
-    let raw = JSON.stringify({
-        "dislikes": mytowatchIds
-    })
+    let mytowatchIds = arrayAllDislikes.map((x) => x);
+    toUpdate.dislikes = mytowatchIds;
+    let raw = JSON.stringify(toUpdate);
     updateProfile(raw);
 }
 
