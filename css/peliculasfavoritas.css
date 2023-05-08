@@ -45,6 +45,6 @@ h1 {
     top: 1px;
 }
 
-.idButton img:hover {
-    transform: scale(1.1);
+.pelicula img:hover {
+    transform: scale(1.05);
 }
