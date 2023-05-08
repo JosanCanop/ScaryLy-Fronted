@@ -1,6 +1,6 @@
-import { checkTokenOn } from "./tokenon.js"
+//import { checkTokenOn } from "./tokenon.js"
 
-checkTokenOn()
+//checkTokenOn()
 
 const form = document.getElementById("form")
 
@@ -40,15 +40,14 @@ async function registerUser(form) {
         const tokenJson = await response.json()
         const tokenActualUser = tokenJson.jwt
         localStorage.setItem("token", tokenActualUser);
-        localStorage.setItem("idUser", idActualUser);
-        localStorage.setItem("email", emailActualUser);
+
         swal({
             title: "¡Usuario registrado!",
             text: "Bienvenid@ al rincón del terror :D",
             icon: "success",
             button: "Let's Go!",
         }).then(function () {
-            location.replace('home.html')
+            location.replace('login.html')
         });;
     } catch (error) {
         passwordErrorMessage.textContent = error.message || "Datos incorrectos"
