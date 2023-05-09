@@ -27,36 +27,31 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <title>Películas vistas</title>
+    <title>Top likes películas</title>
 </head>
 
 <body class="bg-gradient-to-r from-gray-900 from-30% via-red-900 via-50% to-gray-900 to-70%">
     <nav id="navbar" class="w-full fixed top-0 left-0 right-0 z-10 bg-gray-900 bg-opacity-50 backdrop-blur-md">
     </nav>
 
-
-    <div id="container-pelis flex flex-row pb-80">
-        <h1 class="text-white pt-28 text-lg md:text-2xl w-3/4 mx-auto tracking-wider">Películas vistas
-            <i class="far fa-eye text-2xl ml-5 mr-2"></i>
-            <span id="contadorWatched"></span>
-        </h1>
-        <div id="moviesWatched"
+    <div id="container-pelis" class="flex flex-col pb-80">
+        <h1 class="text-white pt-28 text-lg md:text-2xl w-3/4 mx-auto tracking-wider">Top Likes Películas</h1>
+        <div id="topMoviesLikes"
             class="basis-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 w-3/4 mx-auto rounded-lg mt-10">
             <!--pelicula con hover de curl mostrando cubo de basura para eliminar esa peli de la lista en la que estás actualmente-->
+
         </div>
     </div>
 
-    <!--footer-->
-    <footer class="bg-neutral-800 bottom-0 left-0 right-0 z-50 mt-10" id="footer">
+    <footer class=" bg-neutral-800 bottom-0 left-0 right-0 z-50 mt-2" id="footer">
     </footer>
 
     <script src="js/config.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     <script src="js/nav.js"></script>
-
-    <script src="js/footer.js"></script>
     <script src="js/token.js"></script>
-    <script type="module" src="js/peliculasvistas.js"></script>
+    <script src="js/footer.js"></script>
+    <script type="module" src="js/topmovies.js"></script>
 </body>
 
 </html>

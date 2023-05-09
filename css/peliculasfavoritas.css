@@ -48,3 +48,7 @@ h1 {
 .pelicula img:hover {
     transform: scale(1.05);
 }
+
+#container-pelis {
+    min-height: calc(100vh - 120px);
+}
