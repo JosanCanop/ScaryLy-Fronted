@@ -63,17 +63,16 @@ header nav a.activo {
 }
 
 .pelicula-principal .titulo {
-    font-weight: 600;
-    font-size: 3.12em;
-    margin-bottom: 0.4em;
+
+    margin-bottom: 15px;
 }
 
 .pelicula-principal .descripcion {
     font-weight: normal;
     font-size: 1em;
     line-height: 1.75em;
-    max-width: 50%;
-    margin-bottom: 1.25em;
+    max-width: 75%;
+    margin-bottom: 20px;
 }
 
 .pelicula-principal .boton {

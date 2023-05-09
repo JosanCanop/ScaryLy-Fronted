@@ -159,7 +159,7 @@ function showMovieData(movies) {
         btnsUpdateWatched.classList.replace("text-white", "text-green-400")
         btnsUpdateWatched.classList.replace("bg-transparent", "bg-white")
     } else {
-        btnsUpdateWatched.classList.replace("text-yellow-500", "text-white")
+        btnsUpdateWatched.classList.replace("text-green-400", "text-white")
     }
 
     //boton Towatch
@@ -170,10 +170,10 @@ function showMovieData(movies) {
         updateToWatch(btnToWatchId)
     })
     if (arrayAllToWatch.includes(parseInt(movieId))) {
-        btnsUpdateToWatch.classList.replace("text-white", "text-gr-400")
+        btnsUpdateToWatch.classList.replace("text-white", "text-yellow-400")
         btnsUpdateToWatch.classList.replace("bg-transparent", "bg-white")
     } else {
-        btnsUpdateToWatch.classList.replace("text-green-400", "text-white")
+        btnsUpdateToWatch.classList.replace("text-yellow-400", "text-white")
     }
 
     //botones comments
@@ -255,7 +255,6 @@ const formCreate = document.getElementById("formCreate")
 formCreate.addEventListener('submit', (e) => {
     e.preventDefault()
     createComment()
-
 })
 
 const newComment = document.getElementById("newComment")
@@ -289,6 +288,7 @@ async function createComment() {
             button: "Let's Go!",
         }).then(function () {
             location.reload()
+            newComment.innerHTML = ""
         });;
     } catch (error) {
         console.log(error)

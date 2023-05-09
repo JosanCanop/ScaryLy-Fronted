@@ -359,19 +359,21 @@ function showTopMovies(data) {
     // Ordenar las películas por cantidad de likes (de mayor a menor)
     peliculas.sort((a, b) => b.likes - a.likes);
     let peliTop = peliculas[0]
-    mainMovie.innerHTML = `<div class="contenedor  sm:flex sm:justify-between">
-    <div>
-        <h3 class="titulo">${peliTop.nombre}</h3>
+    mainMovie.innerHTML = `<div class="contenedor  md:flex md:justify-between">
+    <div class="w-full md:w-2/3 mt-4 md:mt-28">
+    <h1 class="mb-4">Top 1:</h1>
+        <h3 class="titulo font-black text-2xl md:text-5xl">${peliTop.nombre}</h3>
         <p class="descripcion">${peliTop.description}</p>
         <button role="button" id="btn-${peliTop.id}" class="toWatchMain boton text-md sm:text-lg mb-5"><i class="far fa-eye"></i>Ver
             más
             tarde</button>
         <button role="button" class="boton text-md sm:text-lg mb-5"><a href="./detailmovie.html?id=${peliTop.id}"><i class="fas fa-info-circle"></i>Más información</a></button>
         </div>
-        <div class="flex justify-center">
-        <img class="w-1/2 sm:w-full" src="${peliTop.image}" alt="portada">
+        <div class="flex justify-center w-full md:w-1/3 mb-10">
+        <img class="w-full sm:w-3/4 object-contain" src="${peliTop.image}" alt="portada">
         </div>
         </div>`
+
     //boton añadir ver mas tarde portada
     const btnVerMasTarde = document.querySelector(".toWatchMain")
     let btnWatchedId = null;
@@ -380,7 +382,7 @@ function showTopMovies(data) {
         updateToWatch(btnWatchedId)
     });
     if (arrayAllToWatch.includes(parseInt(peliTop.id))) {
-        btnVerMasTarde.classList.replace("text-white", "text-gr-400")
+        btnVerMasTarde.classList.replace("text-white", "text-green-400")
         btnVerMasTarde.classList.replace("bg-transparent", "bg-white")
     } else {
         btnVerMasTarde.classList.replace("text-green-400", "text-white")
