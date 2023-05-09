@@ -52,8 +52,6 @@ function showTopMovies(data) {
 
     // Ordenar las películas por cantidad de likes (de mayor a menor)
     peliculas.sort((a, b) => b.likes - a.likes);
-
-    console.log(peliculas);
     for (const pelitop of peliculas) {
         topMoviesLikes.innerHTML += `<div class="pelicula flex flex-col items-center bg-gray-700 hover:bg-gray-600 opacity-90 p-3 rounded-lg shadow-lg">
         <div class="pelicula flex flex-col items-center">

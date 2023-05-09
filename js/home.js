@@ -3,6 +3,7 @@ import { carousel } from "./carrousel.js";
 
 //checkTokenOff()
 
+//menu movile responsive
 const hamburguesita = document.getElementById("hamburguesita")
 hamburguesita.addEventListener('click', () => {
     verMenu()
@@ -61,7 +62,7 @@ async function obtenerUser() {
         console.log(error)
     }
 }
-
+//nombre user barra nav
 function showDataUser(data) {
 
     const userName = document.getElementById("userName")
@@ -134,7 +135,7 @@ async function getGenres() {
         console.log(error)
     }
 }
-
+//pintamos botones genero
 function showGenreButtons(data) {
     const buttonsGenres = document.getElementById("btnGenres")
     let genreId = null;
@@ -174,7 +175,7 @@ function showGenreButtons(data) {
         }, false)
     }
 }
-
+//pintamos las movies segun su genero
 function showMoviesGenre(data) {
     const carouselDinamic = document.getElementById("carouselDinamic")
     carouselDinamic.innerHTML = ""
@@ -182,7 +183,7 @@ function showMoviesGenre(data) {
         let peliculas = ""
         for (const pelicula of genre.attributes.movies.data) {
             peliculas += `<div class="pelicula">
-        <a href="./detailmovie.html?id=${pelicula.id}"><img src="${pelicula.attributes.image}""></a>
+        <a href="./detailmovie.html?id=${pelicula.id}"><img src="${pelicula.attributes.image}"></a>
     </div>`
         }
 
@@ -251,7 +252,7 @@ const resutaldosBusqueda = document.getElementById("resultados")
 function showSearchResult(data) {
     for (const resultado of data.data) {
         resutaldosBusqueda.innerHTML += `<div class="w-4/5">
-        <a href="http://127.0.0.1:5501/detailmovie.html?id=${resultado.id}" id="resultado"
+        <a href="./detailmovie.html?id=${resultado.id}" id="resultado"
             class="flex flex-row justify-start gap-x-8 h-fit hover:bg-gray-600 p-2 rounded-md">
             <div class="basis-1/3">
                 <img src="${resultado.attributes.image}" alt="">
@@ -277,7 +278,7 @@ btnSearch.addEventListener('click', async () => {
 const sectionCarousel = document.getElementById("mainSection")
 const resultadosSearch = document.getElementById("resultados-busqueda")
 
-
+//barra de busqueda accciones de buscar y vaciar input
 searchInput.addEventListener('input', async () => {
     if (searchInput.value === '') {
         console.log("ocultar")
@@ -304,3 +305,161 @@ searchInput.addEventListener('keydown', (event) => {
 
 getGenres()
 getMovies()
+
+//Pelicula portada principal
+const mainMovie = document.getElementById("mainMovie")
+
+async function getMainMovie() {
+    try {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+        const response = await fetch(urlBase + '/movies?populate=*&pagination[start]=0&pagination[limit]=1000', requestOptions);
+
+        if (!response.ok) {
+            if (response.status == 401) {
+                localStorage.removeItem("token")
+                window.location.href = "login.html"
+            } else {
+                const message = `Error: ${response.status}`;
+                throw new Error(message);
+            }
+        }
+
+        const data = await response.json();
+        showTopMovies(data.data);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+let peliculas = []
+
+function showTopMovies(data) {
+    data.forEach(pelicula => {
+        // Obtenemos un array con los likes de la película actual
+        const likes = pelicula.attributes.userslikes.data.map(usuario => usuario.id);
+
+        // Agregamos un objeto con la información de la película y sus likes al array "peliculas"
+        if (likes.length != 0) {
+            peliculas.push({
+                id: pelicula.id,
+                nombre: pelicula.attributes.name,
+                likes: likes.length,
+                image: pelicula.attributes.image,
+                description: pelicula.attributes.description
+            });
+        }
+    });
+
+    // Ordenar las películas por cantidad de likes (de mayor a menor)
+    peliculas.sort((a, b) => b.likes - a.likes);
+    let peliTop = peliculas[0]
+    mainMovie.innerHTML = `<div class="contenedor  sm:flex sm:justify-between">
+    <div>
+        <h3 class="titulo">${peliTop.nombre}</h3>
+        <p class="descripcion">${peliTop.description}</p>
+        <button role="button" id="btn-${peliTop.id}" class="toWatchMain boton text-md sm:text-lg mb-5"><i class="far fa-eye"></i>Ver
+            más
+            tarde</button>
+        <button role="button" class="boton text-md sm:text-lg mb-5"><a href="./detailmovie.html?id=${peliTop.id}"><i class="fas fa-info-circle"></i>Más información</a></button>
+        </div>
+        <div class="flex justify-center">
+        <img class="w-1/2 sm:w-full" src="${peliTop.image}" alt="portada">
+        </div>
+        </div>`
+    //boton añadir ver mas tarde portada
+    const btnVerMasTarde = document.querySelector(".toWatchMain")
+    let btnWatchedId = null;
+    btnVerMasTarde.addEventListener('click', () => {
+        btnWatchedId = btnVerMasTarde.id.substring(4)
+        updateToWatch(btnWatchedId)
+    });
+    if (arrayAllToWatch.includes(parseInt(peliTop.id))) {
+        btnVerMasTarde.classList.replace("text-white", "text-gr-400")
+        btnVerMasTarde.classList.replace("bg-transparent", "bg-white")
+    } else {
+        btnVerMasTarde.classList.replace("text-green-400", "text-white")
+    }
+}
+
+
+
+async function getInfoUser() {
+    try {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        const requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+        };
+        const response = await fetch(urlBase + '/users/me?populate=*', requestOptions);
+
+        if (!response.ok) {
+            if (response.status == 401) {
+                localStorage.removeItem("token")
+                window.location.href = "login.html"
+            } else {
+                const message = `Error: ${response.status}`;
+                throw new Error(message);
+            }
+        }
+
+        const data = await response.json();
+        showMoviesUser(data);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+let arrayAllToWatch = [];
+
+function showMoviesUser(data) {
+    for (const towatch of data.towatch) {
+        arrayAllToWatch.push(towatch.id);
+    };
+    //getMovie()
+    getMainMovie();
+}
+
+async function updateProfile(raw) {
+    console.log(raw)
+    try {
+        const response = await fetch(urlBase + '/users/' + localStorage.getItem("idUser"), {
+            method: "PUT",
+            body: raw,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        });
+        if (!response.ok) {
+            const message = `Error: ${response.status}`;
+            throw new Error(message);
+        }
+        location.reload();
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function updateToWatch(movieId) {
+    if (arrayAllToWatch.includes(parseInt(movieId))) {
+        let index = arrayAllToWatch.indexOf(parseInt(movieId));
+        arrayAllToWatch.splice(index, 1);
+    } else {
+        arrayAllToWatch.push(parseInt(movieId));
+    }
+    let mytowatchIds = arrayAllToWatch.map(x => x);
+    let raw = JSON.stringify({
+        "towatch": mytowatchIds
+    })
+    updateProfile(raw);
+}
+
+getInfoUser();
